@@ -1262,9 +1262,9 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 322605473}
-        m_TargetAssemblyTypeName: UnityEngine.Behaviour, UnityEngine
-        m_MethodName: set_enabled
-        m_Mode: 6
+        m_TargetAssemblyTypeName: EnterGame, Assembly-CSharp
+        m_MethodName: GameStart
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -1323,8 +1323,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 64d05858123e1d149991a45ef1dab464, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  UIScene: {fileID: 0}
-  GameScene: {fileID: 0}
+  UIScene: {fileID: 624858973}
+  GameScene: {fileID: 1506433805}
   Mode: 0
   MyTeam: 0
   EnemyTeam: 0
@@ -1475,7 +1475,7 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -2413,6 +2413,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
+      - m_Target: {fileID: 322605473}
+        m_TargetAssemblyTypeName: EnterGame, Assembly-CSharp
+        m_MethodName: SetGameMode
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: dead4v4
+          m_BoolArgument: 1
+        m_CallState: 2
 --- !u!114 &640174125
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2502,7 +2514,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &654021387
 Transform:
   m_ObjectHideFlags: 0
@@ -3339,7 +3351,19 @@ MonoBehaviour:
       m_Image: {fileID: 0}
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 322605473}
+        m_TargetAssemblyTypeName: EnterGame, Assembly-CSharp
+        m_MethodName: SetTeam
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 1030251310}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Dropdown, UnityEngine.UI
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_AlphaFadeSpeed: 0.15
 --- !u!114 &1030251311
 MonoBehaviour:
@@ -3494,7 +3518,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: ' "comp4v4"'
+          m_StringArgument: comp4v4
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &1039712748
@@ -3550,7 +3574,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1063583842
 Transform:
   m_ObjectHideFlags: 0
@@ -3685,9 +3709,9 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: -17}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1149792084
 MonoBehaviour:
@@ -4560,6 +4584,7 @@ GameObject:
   - component: {fileID: 1500592915}
   - component: {fileID: 1500592914}
   - component: {fileID: 1500592913}
+  - component: {fileID: 1500592916}
   m_Layer: 5
   m_Name: ExitGameButton
   m_TagString: Untagged
@@ -4629,7 +4654,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1500592914}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1500592916}
+        m_TargetAssemblyTypeName: ExitProgram, Assembly-CSharp
+        m_MethodName: KillProgram
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1500592914
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4668,6 +4705,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1500592911}
   m_CullTransparentMesh: 0
+--- !u!114 &1500592916
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1500592911}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d755ee7ce517e4b4dbdbf61bec3367ca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1506433805
 GameObject:
   m_ObjectHideFlags: 0
@@ -4858,7 +4907,19 @@ MonoBehaviour:
       m_Image: {fileID: 0}
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 322605473}
+        m_TargetAssemblyTypeName: EnterGame, Assembly-CSharp
+        m_MethodName: SetWeapon
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 1624827727}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Dropdown, UnityEngine.UI
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_AlphaFadeSpeed: 0.15
 --- !u!114 &1624827728
 MonoBehaviour:
