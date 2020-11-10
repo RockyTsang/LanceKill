@@ -117,12 +117,12 @@ public class CharacterPreset : MonoBehaviour
         switch (Type)
         {
             case Identity.Me:
-                gameObject.AddComponent<AvatarControl>();
+                gameObject.AddComponent<AvatarControl>().enabled = false;
                 break;
             case Identity.TestObject:
                 break;
             case Identity.AI:
-                gameObject.AddComponent<NonPlayerAI>();
+                gameObject.AddComponent<NonPlayerAI>().enabled = false;
                 break;
         }
     }

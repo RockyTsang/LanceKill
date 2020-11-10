@@ -30,9 +30,5 @@ public class CameraFollowAvatar : MonoBehaviour
         {
             transform.position = playerTransform.position + deviation; // 相机的位置 = 移动物体的位置 + 偏移量
         }
-        else
-        {
-            
-        }
     }
 }
