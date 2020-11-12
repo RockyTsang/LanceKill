@@ -31,7 +31,7 @@ public class NonPlayerAI : MonoBehaviour
             case CharacterPreset.WeaponSelect.Spear:
                 attackAnimation = "SpearAttack";
                 attackSpeed = 1f;
-                attackDistance = 0.512f;
+                attackDistance = 0.384f;
                 break;
         }
     }

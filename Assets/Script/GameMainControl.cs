@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.SocialPlatforms;
 
@@ -46,10 +47,14 @@ public class GameMainControl : MonoBehaviour
             switch(SpawnPoint.transform.parent.name)
             {
                 case "BottomSpawnFeild":
-                    Instantiate(Avatar, SpawnPoint.transform.position, Quaternion.Euler(new Vector3(0, 0, 0)), transform.Find("Team1")).GetComponent<CharacterPreset>().Team = MyTeam;
+                    GameObject newPlayer1 = Instantiate(Avatar, SpawnPoint.transform.position, Quaternion.Euler(new Vector3(0, 0, 0)), transform.Find("Team1"));
+                    newPlayer1.GetComponent<CharacterPreset>().Team = MyTeam;
+                    newPlayer1.GetComponent<CharacterPreset>().SpawnPosition = SpawnPoint.transform;
                     break;
                 case "TopSpawnFeild":
-                    Instantiate(Avatar, SpawnPoint.transform.position, Quaternion.Euler(new Vector3(0, 0, 0)), transform.Find("Team2")).GetComponent<CharacterPreset>().Team = EnemyTeam;
+                    GameObject newPlayer2 = Instantiate(Avatar, SpawnPoint.transform.position, Quaternion.Euler(new Vector3(0, 0, 0)), transform.Find("Team2"));
+                    newPlayer2.GetComponent<CharacterPreset>().Team = EnemyTeam;
+                    newPlayer2.GetComponent<CharacterPreset>().SpawnPosition = SpawnPoint.transform;
                     break;
             }
         }
@@ -95,6 +100,17 @@ public class GameMainControl : MonoBehaviour
         {
             if(Team1.surviving != Team2.surviving)
             {
+                EditorApplication.isPaused = true;
+                foreach(GameObject player in Players)
+                {
+                    if(player.GetComponent<CharacterPreset>().Type == CharacterPreset.Identity.Me)
+                    {
+                        player.GetComponent<AvatarControl>().enabled = false;
+                    }else if(player.GetComponent<CharacterPreset>().Type == CharacterPreset.Identity.AI)
+                    {
+                        player.GetComponent<NonPlayerAI>().enabled = false;
+                    }
+                }
                 if(Team1.surviving && !Team2.surviving)
                 {
                     Debug.Log(Team1.myTeam.ToString() + " team win!");
@@ -104,6 +120,7 @@ public class GameMainControl : MonoBehaviour
                     Debug.Log(Team2.myTeam.ToString() + " team win!");
                     team2wincount++;
                 }
+                ResetRound();
             }
         }
     }
@@ -142,6 +159,19 @@ public class GameMainControl : MonoBehaviour
                     player.GetComponent<NonPlayerAI>().enabled = true;
                     break;
             }
+        }
+    }
+
+    void ResetRound()
+    {
+        foreach(GameObject player in Players)
+        {
+            Team1.surviving = true;
+            Team2.surviving = true;
+            player.transform.position = player.GetComponent<CharacterPreset>().SpawnPosition.position;
+            player.SetActive(true);
+            EditorApplication.isPaused = false;
+            Invoke("EngageAllPlayer", 3f);
         }
     }
 }

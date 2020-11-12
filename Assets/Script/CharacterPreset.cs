@@ -30,14 +30,15 @@ public class CharacterPreset : MonoBehaviour
     public GameObject WeaponPrefab;
     public GameObject SecondaryWeaponPrefab;
     public AnimatorController Controller;
+    public Transform SpawnPosition;
     public int HealthPoint;
     
     // Start is called before the first frame update
     void Start()
     {
-        //Set player HP
+        // Set player HP
         HealthPoint = 100;
-        
+
         // Set player color
         switch (Team)
         {
