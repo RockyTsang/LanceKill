@@ -12,11 +12,17 @@ public class EnterGame : MonoBehaviour
     public CharacterPreset.TeamSelect MyTeam;
     public CharacterPreset.TeamSelect EnemyTeam;
     public CharacterPreset.WeaponSelect MyWeapon;
+    public int WinUnit;
     
     // Start is called before the first frame update
     void Start()
     {
- 
+        GameMainControl mainProcess = GameScene.GetComponent<GameMainControl>();
+        mainProcess.Mode = GameMainControl.GameModeSelect.Rounded4v4;
+        mainProcess.MyTeam = CharacterPreset.TeamSelect.Red;
+        EnemyTeam = QuickSetTeam(CharacterPreset.TeamSelect.Red);
+        mainProcess.MyWeapon = CharacterPreset.WeaponSelect.Knife;
+        mainProcess.WinUnit = 7;
     }
 
     // Update is called once per frame
@@ -32,6 +38,7 @@ public class EnterGame : MonoBehaviour
         mainProcess.MyTeam = MyTeam;
         EnemyTeam = QuickSetTeam(MyTeam);
         mainProcess.MyWeapon = MyWeapon;
+        mainProcess.WinUnit = WinUnit;
         UIScene.SetActive(false);
         GameScene.SetActive(true);
     }
@@ -109,6 +116,52 @@ public class EnterGame : MonoBehaviour
                 break;
             default:
                 Debug.Log("Weapon setting error! Received: " + weaponType);
+                break;
+        }
+    }
+
+    public void SetWinUnit(Dropdown option)
+    {
+        int Counter = option.value;
+        string mode = option.transform.parent.name;
+        switch(mode)
+        {
+            case "Competitive4v4":
+                switch (Counter)
+                {
+                    case 0:
+                        WinUnit = 7;
+                        break;
+                    case 1:
+                        WinUnit = 9;
+                        break;
+                    case 2:
+                        WinUnit = 11;
+                        break;
+                    case 3:
+                        WinUnit = 13;
+                        break;
+                    default:
+                        Debug.Log("Winning condition error!");
+                        break;
+                }
+                break;
+            case "TeamDeadmatch4v4":
+                switch (Counter)
+                {
+                    case 0:
+                        WinUnit = 50;
+                        break;
+                    case 1:
+                        WinUnit = 100;
+                        break;
+                    case 2:
+                        WinUnit = 150;
+                        break;
+                    default:
+                        Debug.Log("Winning condition error!");
+                        break;
+                }
                 break;
         }
     }

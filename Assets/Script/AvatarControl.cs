@@ -58,6 +58,7 @@ public class AvatarControl : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.LeftShift) && !crushCoolDown)// Press shift to crush
         {
             moveSpeed += 2.5f;
+            transform.Translate(Vector2.up * moveSpeed * Time.deltaTime, Space.Self);
             crushCoolDown = true;// Lock the crush until cool down end
             Invoke("stopCrush", 0.5f);// Reset moveSpeed after 0.5s
             Invoke("crushCoolDownEnd", 5f);// Unlock crush

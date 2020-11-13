@@ -25,6 +25,7 @@ public class CheckTeammate : MonoBehaviour
         }
     }
 
+    // Check if all teammates are dead
     bool AllDead()
     {
         int accumulateDead = 0;

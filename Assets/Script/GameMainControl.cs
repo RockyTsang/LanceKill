@@ -12,6 +12,7 @@ public class GameMainControl : MonoBehaviour
         KillCount4v4
     }
     public GameModeSelect Mode;
+    public int WinUnit;
     public enum MapSelect
     {
         Map1
@@ -28,12 +29,15 @@ public class GameMainControl : MonoBehaviour
     public GameObject[] Players;
     public Camera GameCamera;
 
+    public Announcement AnnouncementWindow;
+
     private int team1wincount;
     private int team2wincount;
 
     // Start is called before the first frame update
     void Start()
     {
+        // Set map
         switch (Map)
         {
             case MapSelect.Map1:
@@ -41,6 +45,7 @@ public class GameMainControl : MonoBehaviour
                 break;
         }
 
+        // instantiate avatars to each spawnpoints
         SpawnPoints = GameObject.FindGameObjectsWithTag("SpawnPoint");
         foreach(GameObject SpawnPoint in SpawnPoints)
         {
@@ -59,10 +64,10 @@ public class GameMainControl : MonoBehaviour
             }
         }
 
+        // Set identity of avatars
         Players = GameObject.FindGameObjectsWithTag("Player");
         System.Random RandomSeed = new System.Random(System.DateTime.Now.Minute);
         int RandNumber = RandomSeed.Next(0, 4);
-        //Debug.Log(RandNumber);
         int PointerOfMe = 0;
         for (int i = 0; i < Players.Length; i++)
         {
@@ -86,6 +91,7 @@ public class GameMainControl : MonoBehaviour
             Players[i].GetComponent<CharacterPreset>().enabled = true;
         }
         GameCamera.gameObject.GetComponent<CameraFollowAvatar>().enabled = true;
+
         team1wincount = 0;
         team2wincount = 0;
         Team1.GetComponent<CheckTeammate>().enabled = true;
@@ -96,10 +102,12 @@ public class GameMainControl : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // Turn-based mode
         if(Mode == GameModeSelect.Rounded4v4)
         {
             if(Team1.surviving != Team2.surviving)
             {
+                // Pause
                 EditorApplication.isPaused = true;
                 foreach(GameObject player in Players)
                 {
@@ -111,20 +119,43 @@ public class GameMainControl : MonoBehaviour
                         player.GetComponent<NonPlayerAI>().enabled = false;
                     }
                 }
+                
+                // Determine win and lose
                 if(Team1.surviving && !Team2.surviving)
                 {
-                    Debug.Log(Team1.myTeam.ToString() + " team win!");
                     team1wincount++;
+                    AnnouncementWindow.ShowResult(Team1.myTeam.ToString(), team1wincount, team2wincount);
+                    WaitFunction(0.3f);
+                    AnnouncementWindow.HideWindow();
                 }else if(!Team1.surviving && Team2.surviving)
                 {
-                    Debug.Log(Team2.myTeam.ToString() + " team win!");
                     team2wincount++;
+                    AnnouncementWindow.ShowResult(Team2.myTeam.ToString(), team1wincount, team2wincount);
+                    WaitFunction(0.3f);
+                    AnnouncementWindow.HideWindow();
                 }
-                ResetRound();
+                if(team1wincount >= Mathf.Round(WinUnit / 2) || team2wincount >= Mathf.Round(WinUnit / 2))
+                {
+                    if(team1wincount >= Mathf.Round(WinUnit / 2))
+                    {
+                        EndGame(Team1.myTeam);
+                    }
+                    else if(team2wincount >= Mathf.Round(WinUnit / 2))
+                    {
+                        EndGame(Team2.myTeam);
+                    }
+                }
+                else
+                {
+                    ResetRound();
+                }
             }
         }
+
+        // Deadmatch mode
     }
 
+    // Random set weapon
     void GenerateIDAndWeapon(int i)
     {
         System.Random WeaponRandomSeed = new System.Random(System.DateTime.Now.Millisecond);
@@ -144,6 +175,7 @@ public class GameMainControl : MonoBehaviour
         Players[i].GetComponent<CharacterPreset>().Type = CharacterPreset.Identity.AI;
     }
 
+    // Start all player's movement
     void EngageAllPlayer()
     {
         foreach(GameObject player in Players)
@@ -164,14 +196,25 @@ public class GameMainControl : MonoBehaviour
 
     void ResetRound()
     {
-        foreach(GameObject player in Players)
+        Team1.surviving = true;
+        Team2.surviving = true;
+        foreach (GameObject player in Players)
         {
-            Team1.surviving = true;
-            Team2.surviving = true;
             player.transform.position = player.GetComponent<CharacterPreset>().SpawnPosition.position;
             player.SetActive(true);
-            EditorApplication.isPaused = false;
-            Invoke("EngageAllPlayer", 3f);
         }
+        EditorApplication.isPaused = false;
+        Invoke("EngageAllPlayer", 3f);
+    }
+
+    void EndGame(CharacterPreset.TeamSelect WinTeam)
+    {
+
+    }
+
+    IEnumerator WaitFunction(float time)
+    {
+        yield return new WaitForSeconds(time);
+        Debug.Log("Waited");
     }
 }
