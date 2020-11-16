@@ -7,6 +7,7 @@ public class CheckTeammate : MonoBehaviour
     public CharacterPreset[] teammates;
     public CharacterPreset.TeamSelect myTeam;
     public bool surviving;
+    public GameMainControl mainProcess;
     
     // Start is called before the first frame update
     void Start()
@@ -19,10 +20,25 @@ public class CheckTeammate : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (AllDead())
+        switch(mainProcess.Mode)
         {
-            surviving = false;
+            case GameMainControl.GameModeSelect.Rounded4v4:
+                if (AllDead())
+                {
+                    surviving = false;
+                }
+                break;
+            case GameMainControl.GameModeSelect.KillCount4v4:
+                foreach(CharacterPreset person in teammates)
+                {
+                    if (!person.gameObject.activeInHierarchy)
+                    {
+                        
+                    }
+                }
+                break;
         }
+        
     }
 
     // Check if all teammates are dead

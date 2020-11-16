@@ -36,7 +36,7 @@ public class GameMainControl : MonoBehaviour
 
     // Start is called before the first frame update
     void Start()
-    {
+    { 
         // Set map
         switch (Map)
         {
@@ -108,8 +108,7 @@ public class GameMainControl : MonoBehaviour
             if(Team1.surviving != Team2.surviving)
             {
                 // Pause
-                EditorApplication.isPaused = true;
-                foreach(GameObject player in Players)
+                foreach (GameObject player in Players)
                 {
                     if(player.GetComponent<CharacterPreset>().Type == CharacterPreset.Identity.Me)
                     {
@@ -119,31 +118,31 @@ public class GameMainControl : MonoBehaviour
                         player.GetComponent<NonPlayerAI>().enabled = false;
                     }
                 }
+                EditorApplication.isPaused = true;
                 
                 // Determine win and lose
-                if(Team1.surviving && !Team2.surviving)
+                if (Team1.surviving && !Team2.surviving)
                 {
                     team1wincount++;
                     AnnouncementWindow.ShowResult(Team1.myTeam.ToString(), team1wincount, team2wincount);
-                    WaitFunction(0.3f);
+                    AnnouncementWindow.gameObject.SetActive(true);
+                    StartCoroutine(WaitFunction(3f));
                     AnnouncementWindow.HideWindow();
                 }else if(!Team1.surviving && Team2.surviving)
                 {
                     team2wincount++;
                     AnnouncementWindow.ShowResult(Team2.myTeam.ToString(), team1wincount, team2wincount);
-                    WaitFunction(0.3f);
+                    AnnouncementWindow.gameObject.SetActive(true);
+                    StartCoroutine(WaitFunction(3f));
                     AnnouncementWindow.HideWindow();
                 }
-                if(team1wincount >= Mathf.Round(WinUnit / 2) || team2wincount >= Mathf.Round(WinUnit / 2))
+                if(team1wincount >= Mathf.Round(WinUnit / 2))
                 {
-                    if(team1wincount >= Mathf.Round(WinUnit / 2))
-                    {
-                        EndGame(Team1.myTeam);
-                    }
-                    else if(team2wincount >= Mathf.Round(WinUnit / 2))
-                    {
-                        EndGame(Team2.myTeam);
-                    }
+                    EndGame(Team1.myTeam);
+                }
+                else if(team2wincount >= Mathf.Round(WinUnit / 2))
+                {
+                    EndGame(Team2.myTeam);
                 }
                 else
                 {
@@ -153,6 +152,10 @@ public class GameMainControl : MonoBehaviour
         }
 
         // Deadmatch mode
+        if(Mode == GameModeSelect.KillCount4v4)
+        {
+
+        }
     }
 
     // Random set weapon
@@ -202,6 +205,7 @@ public class GameMainControl : MonoBehaviour
         {
             player.transform.position = player.GetComponent<CharacterPreset>().SpawnPosition.position;
             player.SetActive(true);
+            Debug.Log(player.activeInHierarchy);
         }
         EditorApplication.isPaused = false;
         Invoke("EngageAllPlayer", 3f);
@@ -214,7 +218,8 @@ public class GameMainControl : MonoBehaviour
 
     IEnumerator WaitFunction(float time)
     {
-        yield return new WaitForSeconds(time);
+        Debug.Log("Waiting");
+        yield return new WaitForSecondsRealtime(time);
         Debug.Log("Waited");
     }
 }

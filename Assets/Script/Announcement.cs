@@ -26,7 +26,6 @@ public class Announcement : MonoBehaviour
         MainMessage.text = WinTeam + " team win!";
         Team1.text = team1count.ToString();
         Team2.text = team2count.ToString();
-        gameObject.SetActive(true);
     }
 
     public void HideWindow()

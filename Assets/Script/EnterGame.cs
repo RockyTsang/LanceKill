@@ -17,6 +17,7 @@ public class EnterGame : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        WinUnit = 7;
         GameMainControl mainProcess = GameScene.GetComponent<GameMainControl>();
         mainProcess.Mode = GameMainControl.GameModeSelect.Rounded4v4;
         mainProcess.MyTeam = CharacterPreset.TeamSelect.Red;
