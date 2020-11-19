@@ -5251,7 +5251,7 @@ MonoBehaviour:
       m_Calls: []
   m_Sprite: {fileID: 21300000, guid: f7f681cd213d9a7488500ce745f2d4f8, type: 3}
   m_Type: 0
-  m_PreserveAspect: 0
+  m_PreserveAspect: 1
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1
@@ -8163,6 +8163,7 @@ MonoBehaviour:
   teammates: []
   myTeam: 0
   surviving: 0
+  mainProcess: {fileID: 1506433807}
 --- !u!1 &1500592911
 GameObject:
   m_ObjectHideFlags: 0
@@ -9576,6 +9577,7 @@ MonoBehaviour:
   teammates: []
   myTeam: 0
   surviving: 0
+  mainProcess: {fileID: 1506433807}
 --- !u!1 &1818132878
 GameObject:
   m_ObjectHideFlags: 0

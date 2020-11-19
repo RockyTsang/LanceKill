@@ -100,7 +100,7 @@ public class GameMainControl : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         // Turn-based mode
         if(Mode == GameModeSelect.Rounded4v4)
@@ -118,36 +118,21 @@ public class GameMainControl : MonoBehaviour
                         player.GetComponent<NonPlayerAI>().enabled = false;
                     }
                 }
-                EditorApplication.isPaused = true;
+                Time.timeScale = 0;
                 
                 // Determine win and lose
                 if (Team1.surviving && !Team2.surviving)
                 {
                     team1wincount++;
                     AnnouncementWindow.ShowResult(Team1.myTeam.ToString(), team1wincount, team2wincount);
-                    AnnouncementWindow.gameObject.SetActive(true);
-                    StartCoroutine(WaitFunction(3f));
-                    AnnouncementWindow.HideWindow();
                 }else if(!Team1.surviving && Team2.surviving)
                 {
                     team2wincount++;
                     AnnouncementWindow.ShowResult(Team2.myTeam.ToString(), team1wincount, team2wincount);
-                    AnnouncementWindow.gameObject.SetActive(true);
-                    StartCoroutine(WaitFunction(3f));
-                    AnnouncementWindow.HideWindow();
                 }
-                if(team1wincount >= Mathf.Round(WinUnit / 2))
-                {
-                    EndGame(Team1.myTeam);
-                }
-                else if(team2wincount >= Mathf.Round(WinUnit / 2))
-                {
-                    EndGame(Team2.myTeam);
-                }
-                else
-                {
-                    ResetRound();
-                }
+                AnnouncementWindow.gameObject.SetActive(true);
+                StartCoroutine(AnnouncementWindow.HideWindow(3));
+                StartCoroutine(ResetRound());
             }
         }
 
@@ -197,17 +182,19 @@ public class GameMainControl : MonoBehaviour
         }
     }
 
-    void ResetRound()
+    IEnumerator ResetRound()
     {
-        Team1.surviving = true;
-        Team2.surviving = true;
         foreach (GameObject player in Players)
         {
             player.transform.position = player.GetComponent<CharacterPreset>().SpawnPosition.position;
+            player.GetComponent<CharacterPreset>().HealthPoint = 100;
             player.SetActive(true);
             Debug.Log(player.activeInHierarchy);
         }
-        EditorApplication.isPaused = false;
+        Team1.surviving = true;
+        Team2.surviving = true;
+        yield return new WaitForSecondsRealtime(4);
+        Time.timeScale = 1;
         Invoke("EngageAllPlayer", 3f);
     }
 
@@ -216,10 +203,19 @@ public class GameMainControl : MonoBehaviour
 
     }
 
-    IEnumerator WaitFunction(float time)
+    void RoundEnd()
     {
-        Debug.Log("Waiting");
-        yield return new WaitForSecondsRealtime(time);
-        Debug.Log("Waited");
+        if (team1wincount >= Mathf.Round(WinUnit / 2))
+        {
+            EndGame(Team1.myTeam);
+        }
+        else if (team2wincount >= Mathf.Round(WinUnit / 2))
+        {
+            EndGame(Team2.myTeam);
+        }
+        else
+        {
+            ResetRound();
+        }
     }
 }

@@ -24,12 +24,31 @@ public class Announcement : MonoBehaviour
     public void ShowResult(string WinTeam, int team1count, int team2count)
     {
         MainMessage.text = WinTeam + " team win!";
+        switch (WinTeam)
+        {
+            case "Red":
+                MainMessage.color = Color.red;
+                break;
+            case "Yellow":
+                MainMessage.color = Color.yellow;
+                break;
+            case "Green":
+                MainMessage.color = Color.green;
+                break;
+            case "Blue":
+                MainMessage.color = Color.blue;
+                break;
+        }
         Team1.text = team1count.ToString();
         Team2.text = team2count.ToString();
+        this.gameObject.SetActive(true);
     }
 
-    public void HideWindow()
+    public IEnumerator HideWindow(float time)
     {
-        gameObject.SetActive(false);
+        Debug.Log("Waiting");
+        yield return new WaitForSecondsRealtime(time);
+        Debug.Log("Waited");
+        this.gameObject.SetActive(false);
     }
 }
