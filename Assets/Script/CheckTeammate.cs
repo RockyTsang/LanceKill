@@ -61,4 +61,12 @@ public class CheckTeammate : MonoBehaviour
             return false;
         }
     }
+
+    public void DestroyPlayers()
+    {
+        foreach(CharacterPreset person in teammates)
+        {
+            Destroy(person.gameObject);
+        }
+    }
 }

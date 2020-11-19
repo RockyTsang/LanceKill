@@ -162,6 +162,7 @@ MonoBehaviour:
   WeaponPrefab: {fileID: 1634196143670148440, guid: 94f188b25901682488e53d14eb89fbd8, type: 3}
   SecondaryWeaponPrefab: {fileID: 5131075086273149620, guid: cc02204475929c548be26bca1425da95, type: 3}
   Controller: {fileID: 9100000, guid: 8da2e8d7851e4664fb4e8e490000230b, type: 2}
+  SpawnPosition: {fileID: 0}
   HealthPoint: 0
 --- !u!1 &5810778667121346367
 GameObject:

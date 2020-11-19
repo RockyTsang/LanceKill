@@ -136,4 +136,33 @@ public class CharacterPreset : MonoBehaviour
             gameObject.SetActive(false);
         }
     }
+
+    public void ResetBody()
+    {
+        transform.position = SpawnPosition.position;
+        HealthPoint = 100;
+        transform.rotation = Quaternion.Euler(0, 0, 0);
+        transform.Find("LeftHand").transform.position = transform.position + new Vector3(-0.1f, 0.1f, 0f);
+        transform.Find("RightHand").transform.position = transform.position + new Vector3(0.1f, 0.1f, 0f);
+        switch (WeaponType)
+        {
+            case WeaponSelect.Knife:
+                transform.Find("Weapon(Clone)").transform.position = transform.position + new Vector3(0.12f, 0.1f, 0);
+                transform.Find("Weapon(Clone)").transform.rotation = Quaternion.Euler(0, 0, -90);
+                transform.Find("SecondaryWeapon(Clone)").transform.position = transform.position + new Vector3(-0.12f, 0.1f, 0);
+                transform.Find("SecondaryWeapon(Clone)").transform.rotation = Quaternion.Euler(0, 0, 90);
+                break;
+            case WeaponSelect.Sword:
+                transform.Find("Weapon(Clone)").transform.position = transform.position + new Vector3(0.1f, 0.2f, 0);
+                transform.Find("Weapon(Clone)").transform.rotation = Quaternion.Euler(0, 0, 0);
+                transform.Find("SecondaryWeapon(Clone)").transform.position = transform.position + new Vector3(0.1f, 0.2f, 0);
+                transform.Find("SecondaryWeapon(Clone)").transform.rotation = Quaternion.Euler(0, 0, 0);
+                transform.Find("SecondaryWeapon(Clone)").gameObject.SetActive(false);
+                break;
+            case WeaponSelect.Spear:
+                transform.Find("Weapon(Clone)").transform.position = transform.position + new Vector3(-0.1f, 0.1f, 0);
+                transform.Find("Weapon(Clone)").transform.rotation = Quaternion.Euler(0, 0, 90);
+                break;
+        }
+    }
 }

@@ -132,14 +132,25 @@ public class GameMainControl : MonoBehaviour
                 }
                 AnnouncementWindow.gameObject.SetActive(true);
                 StartCoroutine(AnnouncementWindow.HideWindow(3));
-                StartCoroutine(ResetRound());
+                if (team1wincount >= Mathf.Round(WinUnit / 2))
+                {
+                    EndGame(Team1.myTeam);
+                }
+                else if (team2wincount >= Mathf.Round(WinUnit / 2))
+                {
+                    EndGame(Team2.myTeam);
+                }
+                else
+                {
+                    StartCoroutine(ResetRound());
+                }
             }
         }
 
         // Deadmatch mode
         if(Mode == GameModeSelect.KillCount4v4)
         {
-
+            
         }
     }
 
@@ -186,10 +197,9 @@ public class GameMainControl : MonoBehaviour
     {
         foreach (GameObject player in Players)
         {
-            player.transform.position = player.GetComponent<CharacterPreset>().SpawnPosition.position;
-            player.GetComponent<CharacterPreset>().HealthPoint = 100;
-            player.SetActive(true);
-            Debug.Log(player.activeInHierarchy);
+            player.GetComponent<CharacterPreset>().ResetBody();
+            player.gameObject.SetActive(true);
+            //Debug.Log(player.activeInHierarchy);
         }
         Team1.surviving = true;
         Team2.surviving = true;
@@ -200,22 +210,7 @@ public class GameMainControl : MonoBehaviour
 
     void EndGame(CharacterPreset.TeamSelect WinTeam)
     {
-
-    }
-
-    void RoundEnd()
-    {
-        if (team1wincount >= Mathf.Round(WinUnit / 2))
-        {
-            EndGame(Team1.myTeam);
-        }
-        else if (team2wincount >= Mathf.Round(WinUnit / 2))
-        {
-            EndGame(Team2.myTeam);
-        }
-        else
-        {
-            ResetRound();
-        }
+        Team1.DestroyPlayers();
+        Team2.DestroyPlayers();
     }
 }

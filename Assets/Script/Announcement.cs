@@ -46,9 +46,9 @@ public class Announcement : MonoBehaviour
 
     public IEnumerator HideWindow(float time)
     {
-        Debug.Log("Waiting");
+        //Debug.Log("Waiting");
         yield return new WaitForSecondsRealtime(time);
-        Debug.Log("Waited");
+        //Debug.Log("Waited");
         this.gameObject.SetActive(false);
     }
 }
