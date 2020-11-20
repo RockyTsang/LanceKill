@@ -43,6 +43,8 @@ public class AvatarControl : MonoBehaviour
                 longAttackCD = 5f;
                 break;
         }
+        GameObject.Find("HPBarFrame").GetComponent<HPBar>().Me = gameObject;
+        GameObject.Find("HPBarFrame").GetComponent<HPBar>().enabled = true;
     }
 
     // Update is called once per frame

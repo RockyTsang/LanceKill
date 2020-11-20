@@ -20,25 +20,27 @@ public class CheckTeammate : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        switch(mainProcess.Mode)
+        if(teammates == null)
         {
-            case GameMainControl.GameModeSelect.Rounded4v4:
-                if (AllDead())
-                {
-                    surviving = false;
-                }
-                break;
-            case GameMainControl.GameModeSelect.KillCount4v4:
-                foreach(CharacterPreset person in teammates)
-                {
-                    if (!person.gameObject.activeInHierarchy)
+            switch (mainProcess.Mode)
+            {
+                case GameMainControl.GameModeSelect.Rounded4v4:
+                    if (AllDead())
                     {
-                        
+                        surviving = false;
                     }
-                }
-                break;
+                    break;
+                case GameMainControl.GameModeSelect.KillCount4v4:
+                    foreach (CharacterPreset person in teammates)
+                    {
+                        if (!person.gameObject.activeInHierarchy)
+                        {
+
+                        }
+                    }
+                    break;
+            }
         }
-        
     }
 
     // Check if all teammates are dead
@@ -66,6 +68,7 @@ public class CheckTeammate : MonoBehaviour
     {
         foreach(CharacterPreset person in teammates)
         {
+            System.Array.Clear(teammates, 0, teammates.Length);
             Destroy(person.gameObject);
         }
     }

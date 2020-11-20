@@ -26,9 +26,12 @@ public class CameraFollowAvatar : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (MyAvatar.activeInHierarchy)
+        if(MyAvatar)
         {
-            transform.position = playerTransform.position + deviation; // 相机的位置 = 移动物体的位置 + 偏移量
+            if (MyAvatar.activeInHierarchy)
+            {
+                transform.position = playerTransform.position + deviation; // 相机的位置 = 移动物体的位置 + 偏移量
+            }
         }
     }
 }
