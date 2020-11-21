@@ -29,6 +29,7 @@ public class GameMainControl : MonoBehaviour
     public GameObject[] Players;
     public Camera GameCamera;
 
+    public UIControl UILobby;
     public Announcement AnnouncementWindow;
 
     private int team1wincount;
@@ -41,7 +42,7 @@ public class GameMainControl : MonoBehaviour
         switch (Map)
         {
             case MapSelect.Map1:
-                Instantiate(Maps[0], transform);
+                Instantiate(Maps[0], transform).name = "Map";
                 break;
         }
 
@@ -134,11 +135,11 @@ public class GameMainControl : MonoBehaviour
                 StartCoroutine(AnnouncementWindow.HideWindow(3));
                 if (team1wincount >= Mathf.Round((float)WinUnit / 2))
                 {
-                    EndGame(Team1.myTeam);
+                    StartCoroutine(EndGame(Team1.myTeam));
                 }
                 else if (team2wincount >= Mathf.Round((float)WinUnit / 2))
                 {
-                    EndGame(Team2.myTeam);
+                    StartCoroutine(EndGame(Team2.myTeam));
                 }
                 else
                 {
@@ -208,9 +209,14 @@ public class GameMainControl : MonoBehaviour
         Invoke("EngageAllPlayer", 3f);
     }
 
-    void EndGame(CharacterPreset.TeamSelect WinTeam)
+    IEnumerator EndGame(CharacterPreset.TeamSelect WinTeam)
     {
+        yield return new WaitForSecondsRealtime(3);
         Team1.DestroyPlayers();
         Team2.DestroyPlayers();
+        Destroy(transform.Find("Map"));
+        UILobby.BackToLobby();
+        UILobby.gameObject.SetActive(true);
+        Time.timeScale = 1;
     }
 }
