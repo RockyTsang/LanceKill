@@ -214,8 +214,9 @@ public class GameMainControl : MonoBehaviour
         yield return new WaitForSecondsRealtime(3);
         Team1.DestroyPlayers();
         Team2.DestroyPlayers();
-        Destroy(transform.Find("Map"));
+        Destroy(transform.Find("Map").gameObject);
         UILobby.BackToLobby();
+        gameObject.SetActive(false);
         UILobby.gameObject.SetActive(true);
         Time.timeScale = 1;
     }

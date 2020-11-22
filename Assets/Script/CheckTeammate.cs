@@ -8,7 +8,7 @@ public class CheckTeammate : MonoBehaviour
     public CharacterPreset.TeamSelect myTeam;
     public bool surviving;
     public GameMainControl mainProcess;
-    
+
     // Start is called before the first frame update
     void Start()
     {
@@ -20,7 +20,7 @@ public class CheckTeammate : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(teammates == null)
+        if (!AllDestroyed())
         {
             switch (mainProcess.Mode)
             {
@@ -43,6 +43,23 @@ public class CheckTeammate : MonoBehaviour
         }
     }
 
+    bool AllDestroyed()
+    {
+        bool counter = true;
+        for(int i = 0; i < teammates.Length; i++)
+        {
+            if(teammates[i] == null)
+            {
+                counter = counter && true;
+            }
+            else
+            {
+                counter = counter && false;
+            }
+        }
+        return counter;
+    }
+    
     // Check if all teammates are dead
     bool AllDead()
     {
@@ -68,8 +85,8 @@ public class CheckTeammate : MonoBehaviour
     {
         foreach(CharacterPreset person in teammates)
         {
-            System.Array.Clear(teammates, 0, teammates.Length);
             Destroy(person.gameObject);
         }
+        teammates = new CharacterPreset[] { null };
     }
 }

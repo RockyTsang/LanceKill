@@ -32,12 +32,14 @@ public class CharacterPreset : MonoBehaviour
     public AnimatorController Controller;
     public Transform SpawnPosition;
     public int HealthPoint;
+    private bool living;
     
     // Start is called before the first frame update
     void Start()
     {
         // Set player HP
         HealthPoint = 100;
+        living = true;
 
         // Set player color
         switch (Team)
@@ -131,9 +133,21 @@ public class CharacterPreset : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(HealthPoint <= 0)
+        if (living)
         {
-            gameObject.SetActive(false);
+            if(HealthPoint <= 0)
+            {
+                gameObject.SetActive(false);
+                
+            }
+        }
+        if (gameObject.activeInHierarchy)
+        {
+            living = true;
+        }
+        else
+        {
+            living = false;
         }
     }
 
