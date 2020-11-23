@@ -2244,11 +2244,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   UIScene: {fileID: 624858973}
   GameScene: {fileID: 1506433805}
-  Mode: 0
-  MyTeam: 0
-  EnemyTeam: 0
-  MyWeapon: 0
-  WinUnit: 0
+  ModePanels:
+  - {fileID: 1623302534}
+  - {fileID: 606953807}
+  TeamSelection: {fileID: 1030251310}
+  WeaponSelection: {fileID: 1624827727}
+  RoundsOrKills: {fileID: 1424595998}
 --- !u!1 &336891582
 GameObject:
   m_ObjectHideFlags: 0
@@ -5838,19 +5839,7 @@ MonoBehaviour:
       m_Image: {fileID: 0}
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 322605473}
-        m_TargetAssemblyTypeName: EnterGame, Assembly-CSharp
-        m_MethodName: SetTeam
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 1030251310}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Dropdown, UnityEngine.UI
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
   m_AlphaFadeSpeed: 0.15
 --- !u!114 &1030251311
 MonoBehaviour:
@@ -7981,31 +7970,7 @@ MonoBehaviour:
       m_Image: {fileID: 0}
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 322605473}
-        m_TargetAssemblyTypeName: EnterGame, Assembly-CSharp
-        m_MethodName: SetWinUnit
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 1424595998}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Dropdown, UnityEngine.UI
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 322605473}
-        m_TargetAssemblyTypeName: EnterGame, Assembly-CSharp
-        m_MethodName: SetGameMode
-        m_Mode: 5
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: comp4v4
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
   m_AlphaFadeSpeed: 0.15
 --- !u!114 &1424595999
 MonoBehaviour:
@@ -8680,31 +8645,7 @@ MonoBehaviour:
       m_Image: {fileID: 0}
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 322605473}
-        m_TargetAssemblyTypeName: EnterGame, Assembly-CSharp
-        m_MethodName: SetWinUnit
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 1534436152}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Dropdown, UnityEngine.UI
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 322605473}
-        m_TargetAssemblyTypeName: EnterGame, Assembly-CSharp
-        m_MethodName: SetGameMode
-        m_Mode: 5
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: dead4v4
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
   m_AlphaFadeSpeed: 0.15
 --- !u!114 &1534436153
 MonoBehaviour:
@@ -9036,19 +8977,7 @@ MonoBehaviour:
       m_Image: {fileID: 0}
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 322605473}
-        m_TargetAssemblyTypeName: EnterGame, Assembly-CSharp
-        m_MethodName: SetWeapon
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 1624827727}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Dropdown, UnityEngine.UI
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
   m_AlphaFadeSpeed: 0.15
 --- !u!114 &1624827728
 MonoBehaviour:
@@ -9344,7 +9273,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1699394426
 RectTransform:
   m_ObjectHideFlags: 0

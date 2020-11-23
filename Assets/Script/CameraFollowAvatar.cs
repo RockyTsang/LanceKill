@@ -9,7 +9,7 @@ public class CameraFollowAvatar : MonoBehaviour
     public Vector3 deviation; // 偏移量
 
     // Start is called before the first frame update
-    void Start()
+    void OnEnable()
     {
         foreach(GameObject Avatar in GetComponentInParent<GameMainControl>().Players)
         {

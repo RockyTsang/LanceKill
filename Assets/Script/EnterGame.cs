@@ -8,28 +8,103 @@ public class EnterGame : MonoBehaviour
 {
     public GameObject UIScene;
     public GameObject GameScene;
-    public GameMainControl.GameModeSelect Mode;
-    public CharacterPreset.TeamSelect MyTeam;
-    public CharacterPreset.TeamSelect EnemyTeam;
-    public CharacterPreset.WeaponSelect MyWeapon;
-    public int WinUnit;
+    public GameObject[] ModePanels; 
+    private GameMainControl.GameModeSelect Mode;
+    public Dropdown TeamSelection;
+    private CharacterPreset.TeamSelect MyTeam;
+    private CharacterPreset.TeamSelect EnemyTeam;
+    public Dropdown WeaponSelection;
+    private CharacterPreset.WeaponSelect MyWeapon;
+    public Dropdown RoundsOrKills;
+    private int WinUnit;
     
     // Start is called before the first frame update
     void Start()
     {
-        WinUnit = 7;
-        GameMainControl mainProcess = GameScene.GetComponent<GameMainControl>();
-        mainProcess.Mode = GameMainControl.GameModeSelect.Rounded4v4;
-        mainProcess.MyTeam = CharacterPreset.TeamSelect.Red;
-        EnemyTeam = QuickSetTeam(CharacterPreset.TeamSelect.Red);
-        mainProcess.MyWeapon = CharacterPreset.WeaponSelect.Knife;
-        mainProcess.WinUnit = 7;
+        
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        foreach(GameObject panel in ModePanels)
+        {
+            if (panel.activeInHierarchy)
+            {
+                switch (panel.name)
+                {
+                    case "Competitive4v4":
+                        Mode = GameMainControl.GameModeSelect.Rounded4v4;
+                        switch (RoundsOrKills.value)
+                        {
+                            case 0:
+                                WinUnit = 7;
+                                break;
+                            case 1:
+                                WinUnit = 9;
+                                break;
+                            case 2:
+                                WinUnit = 11;
+                                break;
+                            case 3:
+                                WinUnit = 13;
+                                break;
+                            default:
+                                Debug.Log("Illegal win unit!");
+                                WinUnit = 0;
+                                break;
+                        }
+                        break;
+                    case "TeamDeadmatch4v4":
+                        Mode = GameMainControl.GameModeSelect.KillCount4v4;
+                        switch (RoundsOrKills.value)
+                        {
+                            case 0:
+                                WinUnit = 50;
+                                break;
+                            case 1:
+                                WinUnit = 100;
+                                break;
+                            case 2:
+                                WinUnit = 150;
+                                break;
+                            default:
+                                Debug.Log("Illegal win unit!");
+                                WinUnit = 0;
+                                break;
+                        }
+                        break;
+                }
+            }
+        }
+        switch (TeamSelection.value)
+        {
+            case 0:
+                MyTeam = CharacterPreset.TeamSelect.Red;
+                break;
+            case 1:
+                MyTeam = CharacterPreset.TeamSelect.Yellow;
+                break;
+            case 2:
+                MyTeam = CharacterPreset.TeamSelect.Green;
+                break;
+            case 3:
+                MyTeam = CharacterPreset.TeamSelect.Blue;
+                break;
+        }
+        EnemyTeam = QuickSetTeam(MyTeam);
+        switch (WeaponSelection.value)
+        {
+            case 0:
+                MyWeapon = CharacterPreset.WeaponSelect.Knife;
+                break;
+            case 1:
+                MyWeapon = CharacterPreset.WeaponSelect.Sword;
+                break;
+            case 2:
+                MyWeapon = CharacterPreset.WeaponSelect.Spear;
+                break;
+        }
     }
 
     public void GameStart()
@@ -37,7 +112,7 @@ public class EnterGame : MonoBehaviour
         GameMainControl mainProcess = GameScene.GetComponent<GameMainControl>();
         mainProcess.Mode = Mode;
         mainProcess.MyTeam = MyTeam;
-        EnemyTeam = QuickSetTeam(MyTeam);
+        mainProcess.EnemyTeam = EnemyTeam;
         mainProcess.MyWeapon = MyWeapon;
         mainProcess.WinUnit = WinUnit;
         UIScene.SetActive(false);
@@ -59,111 +134,6 @@ public class EnterGame : MonoBehaviour
             default:
                 Debug.Log("Enemy team setting error!");
                 return CharacterPreset.TeamSelect.Red;
-        }
-    }
-
-    public void SetGameMode(string modeName)
-    {
-        switch (modeName)
-        {
-            case "comp4v4":
-                Mode = GameMainControl.GameModeSelect.Rounded4v4;
-                break;
-            case "dead4v4":
-                Mode = GameMainControl.GameModeSelect.KillCount4v4;
-                break;
-            default:
-                Debug.Log("Gamemode error! Received: " + modeName);
-                break;
-        }
-    }
-
-    public void SetTeam(Dropdown options)
-    {
-        int teamColor = options.value;
-        switch (teamColor)
-        {
-            case 0:
-                MyTeam = CharacterPreset.TeamSelect.Red;
-                break;
-            case 1:
-                MyTeam = CharacterPreset.TeamSelect.Yellow;
-                break;
-            case 2:
-                MyTeam = CharacterPreset.TeamSelect.Green;
-                break;
-            case 3:
-                MyTeam = CharacterPreset.TeamSelect.Blue;
-                break;
-            default:
-                Debug.Log("Team color error! Received: " + teamColor);
-                break;
-        }
-    }
-
-    public void SetWeapon(Dropdown options)
-    {
-        int weaponType = options.value;
-        switch (weaponType)
-        {
-            case 0:
-                MyWeapon = CharacterPreset.WeaponSelect.Knife;
-                break;
-            case 1:
-                MyWeapon = CharacterPreset.WeaponSelect.Sword;
-                break;
-            case 2:
-                MyWeapon = CharacterPreset.WeaponSelect.Spear;
-                break;
-            default:
-                Debug.Log("Weapon setting error! Received: " + weaponType);
-                break;
-        }
-    }
-
-    public void SetWinUnit(Dropdown option)
-    {
-        int Counter = option.value;
-        string mode = option.transform.parent.name;
-        switch(mode)
-        {
-            case "Competitive4v4":
-                switch (Counter)
-                {
-                    case 0:
-                        WinUnit = 7;
-                        break;
-                    case 1:
-                        WinUnit = 9;
-                        break;
-                    case 2:
-                        WinUnit = 11;
-                        break;
-                    case 3:
-                        WinUnit = 13;
-                        break;
-                    default:
-                        Debug.Log("Winning condition error!");
-                        break;
-                }
-                break;
-            case "TeamDeadmatch4v4":
-                switch (Counter)
-                {
-                    case 0:
-                        WinUnit = 50;
-                        break;
-                    case 1:
-                        WinUnit = 100;
-                        break;
-                    case 2:
-                        WinUnit = 150;
-                        break;
-                    default:
-                        Debug.Log("Winning condition error!");
-                        break;
-                }
-                break;
         }
     }
 }

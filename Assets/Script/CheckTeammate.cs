@@ -10,7 +10,7 @@ public class CheckTeammate : MonoBehaviour
     public GameMainControl mainProcess;
 
     // Start is called before the first frame update
-    void Start()
+    void OnEnable()
     {
         teammates = GetComponentsInChildren<CharacterPreset>();
         myTeam = teammates[0].Team;

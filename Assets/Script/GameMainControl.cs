@@ -36,7 +36,7 @@ public class GameMainControl : MonoBehaviour
     private int team2wincount;
 
     // Start is called before the first frame update
-    void Start()
+    void OnEnable()
     { 
         // Set map
         switch (Map)
@@ -214,7 +214,14 @@ public class GameMainControl : MonoBehaviour
         yield return new WaitForSecondsRealtime(3);
         Team1.DestroyPlayers();
         Team2.DestroyPlayers();
+        Team1.surviving = true;
+        Team2.surviving = true;
+        Team1.GetComponent<CheckTeammate>().enabled = false;
+        Team2.GetComponent<CheckTeammate>().enabled = false;
+        team1wincount = 0;
+        team2wincount = 0;
         Destroy(transform.Find("Map").gameObject);
+        Players = new GameObject[] { null };
         UILobby.BackToLobby();
         gameObject.SetActive(false);
         UILobby.gameObject.SetActive(true);
