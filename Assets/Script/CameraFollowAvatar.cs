@@ -5,6 +5,7 @@ using UnityEngine;
 public class CameraFollowAvatar : MonoBehaviour
 {
     private GameObject MyAvatar;
+    private GameObject ObservingTeammate;
     public Transform playerTransform; // 移动的物体
     public Vector3 deviation; // 偏移量
 
@@ -31,6 +32,18 @@ public class CameraFollowAvatar : MonoBehaviour
             if (MyAvatar.activeInHierarchy)
             {
                 transform.position = playerTransform.position + deviation; // 相机的位置 = 移动物体的位置 + 偏移量
+            }
+            else
+            {
+                GameObject[] SurvivingList = GetComponentInParent<GameMainControl>().Players;
+                for (int i = 0; i < SurvivingList.Length; i++)
+                {
+                    if (SurvivingList[i].activeInHierarchy && SurvivingList[i].GetComponent<CharacterPreset>().Team == MyAvatar.GetComponent<CharacterPreset>().Team)
+                    {
+                        transform.position = SurvivingList[i].transform.position + deviation;
+                        break;
+                    }
+                }
             }
         }
     }
