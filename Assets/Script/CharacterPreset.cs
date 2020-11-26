@@ -33,7 +33,23 @@ public class CharacterPreset : MonoBehaviour
     public Transform SpawnPosition;
     public int HealthPoint;
     private bool living;
-    
+
+    public bool crushCoolDown;
+    public bool longAttackCoolDown;
+    public float moveSpeed;
+    private string attackAnimation;
+    private string longAttackAnimation;
+    private float attackSpeed;
+    private float longAttackSpeed;
+    private float longAttackCD;
+
+    void OnEnable()
+    {
+        crushCoolDown = false;
+        longAttackCoolDown = false;
+        moveSpeed = 0.5f;
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -104,14 +120,29 @@ public class CharacterPreset : MonoBehaviour
                 Instantiate(SecondaryWeaponPrefab, transform.position + new Vector3(-0.12f, 0.1f, 0), Quaternion.Euler(0, 0, 90), transform);
                 transform.Find("SecondaryWeapon(Clone)").GetComponent<SecondaryWeapon>().PrimaryWeapon = transform.Find("Weapon(Clone)").gameObject;
                 transform.Find("SecondaryWeapon(Clone)").gameObject.SetActive(true);
+                attackAnimation = "KnifeAttack";
+                longAttackAnimation = "KnifeLongAttack";
+                attackSpeed = 0.333f;
+                longAttackSpeed = 0.5f;
+                longAttackCD = 2f;
                 break;
             case WeaponSelect.Sword:
                 Instantiate(WeaponPrefab, transform.position + new Vector3(0.1f, 0.2f, 0), Quaternion.Euler(0, 0, 0), transform);
                 Instantiate(SecondaryWeaponPrefab, transform.position + new Vector3(0.1f, 0.2f, 0), Quaternion.Euler(0, 0, 0), transform);
                 transform.Find("SecondaryWeapon(Clone)").GetComponent<SecondaryWeapon>().PrimaryWeapon = transform.Find("Weapon(Clone)").gameObject;
+                attackAnimation = "SwordAttack";
+                longAttackAnimation = "SwordLongAttack";
+                attackSpeed = 0.75f;
+                longAttackSpeed = 1.5f;
+                longAttackCD = 10f;
                 break;
             case WeaponSelect.Spear:
                 Instantiate(WeaponPrefab, transform.position + new Vector3(-0.1f, 0.1f, 0), Quaternion.Euler(0, 0, 90), transform);
+                attackAnimation = "SpearAttack";
+                longAttackAnimation = "SpearLongAttack";
+                attackSpeed = 1f;
+                longAttackSpeed = 1f;
+                longAttackCD = 5f;
                 break;
         }
         gameObject.GetComponent<Animator>().runtimeAnimatorController = Controller; 
@@ -178,5 +209,40 @@ public class CharacterPreset : MonoBehaviour
                 transform.Find("Weapon(Clone)").transform.rotation = Quaternion.Euler(0, 0, 90);
                 break;
         }
+    }
+
+    public IEnumerator Attack()
+    {
+        if (!GetComponentInChildren<Weapon>().Attacking)
+        {
+            this.GetComponentInChildren<Animator>().Play(attackAnimation);
+            GetComponentInChildren<Weapon>().Attacking = true;
+            yield return new WaitForSecondsRealtime(attackSpeed);
+            GetComponentInChildren<Weapon>().Attacking = false;
+        }
+    }
+
+    public IEnumerator LongAttack()
+    {
+        if (!longAttackCoolDown && !GetComponentInChildren<Weapon>().Attacking)
+        {
+            this.GetComponentInChildren<Animator>().Play(longAttackAnimation);
+            GetComponentInChildren<Weapon>().Attacking = true;
+            longAttackCoolDown = true;
+            yield return new WaitForSecondsRealtime(longAttackSpeed);
+            GetComponentInChildren<Weapon>().Attacking = false;
+            yield return new WaitForSecondsRealtime(longAttackCD);
+            longAttackCoolDown = false;
+        }
+    }
+
+    public IEnumerator Crush()
+    {
+        moveSpeed += 2.5f;
+        crushCoolDown = true;// Lock the crush until cool down end
+        yield return new WaitForSecondsRealtime(0.5f);
+        moveSpeed -= 2.5f;
+        yield return new WaitForSecondsRealtime(5f);
+        crushCoolDown = false;
     }
 }

@@ -22,18 +22,7 @@ public class RiverCharacter : MonoBehaviour
         {
             GameObject ContactObject;
             ContactObject = collision.gameObject;
-            switch (ContactObject.GetComponent<CharacterPreset>().Type)
-            {
-                case CharacterPreset.Identity.Me:
-                    ContactObject.GetComponent<AvatarControl>().moveSpeed -= 0.2f;
-                    break;
-                case CharacterPreset.Identity.TestObject:
-                    ContactObject.GetComponent<NonPlayerAI>().moveSpeed -= 0.2f;
-                    break;
-                case CharacterPreset.Identity.AI:
-                    ContactObject.GetComponent<NonPlayerAI>().moveSpeed -= 0.2f;
-                    break;
-            }
+            ContactObject.GetComponent<CharacterPreset>().moveSpeed -= 0.2f;
         }
     }
 
@@ -43,18 +32,7 @@ public class RiverCharacter : MonoBehaviour
         {
             GameObject ContactObject;
             ContactObject = collision.gameObject;
-            switch (ContactObject.GetComponent<CharacterPreset>().Type)
-            {
-                case CharacterPreset.Identity.Me:
-                    ContactObject.GetComponent<AvatarControl>().moveSpeed += 0.2f;
-                    break;
-                case CharacterPreset.Identity.TestObject:
-                    ContactObject.GetComponent<NonPlayerAI>().moveSpeed += 0.2f;
-                   break;
-                case CharacterPreset.Identity.AI:
-                    ContactObject.GetComponent<NonPlayerAI>().moveSpeed += 0.2f;
-                    break;
-            }
+            ContactObject.GetComponent<CharacterPreset>().moveSpeed += 0.2f;
         }
     }
 }

@@ -6,31 +6,23 @@ public class NonPlayerAI : MonoBehaviour
 {
     public GameObject[] AllChar;
     public GameObject Nearest;
-    public float moveSpeed;
-    private string attackAnimation;
-    private float attackSpeed;
+    public CharacterPreset PresetScript;
     private float attackDistance;
 
     // Start is called before the first frame update
     void Start()
     {
         AllChar = GameObject.FindGameObjectsWithTag("Player");
-        moveSpeed = 0.5f;
-        switch (gameObject.GetComponent<CharacterPreset>().WeaponType)
+        PresetScript = gameObject.GetComponent<CharacterPreset>();
+        switch (PresetScript.WeaponType)
         {
             case CharacterPreset.WeaponSelect.Knife:
-                attackAnimation = "KnifeAttack";
-                attackSpeed = 0.2f;
                 attackDistance = 0.256f;
                 break;
             case CharacterPreset.WeaponSelect.Sword:
-                attackAnimation = "SwordAttack";
-                attackSpeed = 0.45f;
                 attackDistance = 0.384f;
                 break;
             case CharacterPreset.WeaponSelect.Spear:
-                attackAnimation = "SpearAttack";
-                attackSpeed = 1f;
                 attackDistance = 0.384f;
                 break;
         }
@@ -62,13 +54,11 @@ public class NonPlayerAI : MonoBehaviour
         {
             if (!GetComponentInChildren<Weapon>().Attacking)
             {
-                this.GetComponent<Animator>().Play(attackAnimation);
-                GetComponentInChildren<Weapon>().Attacking = true;
-                Invoke("attacked", attackSpeed);
+                StartCoroutine(PresetScript.Attack());
             }
             else
             {
-                transform.Translate(Vector2.down * moveSpeed * Time.deltaTime, Space.Self);
+                transform.Translate(Vector2.down * PresetScript.moveSpeed * Time.deltaTime, Space.Self);
             }   
         }
         else
@@ -79,12 +69,7 @@ public class NonPlayerAI : MonoBehaviour
             float angle = Vector2.SignedAngle(new Vector2(0, 1), targetpos2 - mypos2);
             transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
             // Move to the position of enemy
-            transform.Translate(Vector2.up * moveSpeed * Time.deltaTime, Space.Self);
+            transform.Translate(Vector2.up * PresetScript.moveSpeed * Time.deltaTime, Space.Self);
         }
-    }
-
-    void attacked()
-    {
-        GetComponentInChildren<Weapon>().Attacking = false;
     }
 }
