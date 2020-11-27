@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.SocialPlatforms;
+using UnityEngine.UI;
 
 public class GameMainControl : MonoBehaviour
 {
@@ -63,6 +64,19 @@ public class GameMainControl : MonoBehaviour
                     newPlayer2.GetComponent<CharacterPreset>().SpawnPosition = SpawnPoint.transform;
                     break;
             }
+        }
+
+        switch (MyWeapon)
+        {
+            case CharacterPreset.WeaponSelect.Knife:
+                GameObject.Find("LongAttackIcon").GetComponent<Image>().sprite = GameObject.Find("LongAttackIcon").GetComponent<SkillCoolDown>().IconSprites[0];
+                break;
+            case CharacterPreset.WeaponSelect.Sword:
+                GameObject.Find("LongAttackIcon").GetComponent<Image>().sprite = GameObject.Find("LongAttackIcon").GetComponent<SkillCoolDown>().IconSprites[1];
+                break;
+            case CharacterPreset.WeaponSelect.Spear:
+                GameObject.Find("LongAttackIcon").GetComponent<Image>().sprite = GameObject.Find("LongAttackIcon").GetComponent<SkillCoolDown>().IconSprites[2];
+                break;
         }
 
         // Set identity of avatars

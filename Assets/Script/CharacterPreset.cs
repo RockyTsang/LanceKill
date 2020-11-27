@@ -41,7 +41,10 @@ public class CharacterPreset : MonoBehaviour
     private string longAttackAnimation;
     private float attackSpeed;
     private float longAttackSpeed;
-    private float longAttackCD;
+    public float longAttackCD;
+
+    public float longAttackTimer;
+    public float crushTimer;
 
     void OnEnable()
     {
@@ -164,6 +167,14 @@ public class CharacterPreset : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(longAttackTimer > 0)
+        {
+            longAttackTimer -= Time.deltaTime;
+        }
+        if(crushTimer > 0)
+        {
+            crushTimer -= Time.deltaTime;
+        }
         if (living)
         {
             if(HealthPoint <= 0)
@@ -231,6 +242,7 @@ public class CharacterPreset : MonoBehaviour
             longAttackCoolDown = true;
             yield return new WaitForSecondsRealtime(longAttackSpeed);
             GetComponentInChildren<Weapon>().Attacking = false;
+            longAttackTimer = longAttackCD;
             yield return new WaitForSecondsRealtime(longAttackCD);
             longAttackCoolDown = false;
         }
@@ -242,6 +254,7 @@ public class CharacterPreset : MonoBehaviour
         crushCoolDown = true;// Lock the crush until cool down end
         yield return new WaitForSecondsRealtime(0.5f);
         moveSpeed -= 2.5f;
+        crushTimer = 5f;
         yield return new WaitForSecondsRealtime(5f);
         crushCoolDown = false;
     }

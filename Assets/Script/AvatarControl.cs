@@ -11,7 +11,11 @@ public class AvatarControl : MonoBehaviour
     {
         PresetScript = gameObject.GetComponent<CharacterPreset>();
         GameObject.Find("HPBarFrame").GetComponent<HPBar>().Me = gameObject;
+        GameObject.Find("LongAttackIcon").GetComponent<SkillCoolDown>().Me = gameObject;
+        GameObject.Find("CrushIcon").GetComponent<SkillCoolDown>().Me = gameObject;
         GameObject.Find("HPBarFrame").GetComponent<HPBar>().enabled = true;
+        GameObject.Find("LongAttackIcon").GetComponent<SkillCoolDown>().enabled = true;
+        GameObject.Find("CrushIcon").GetComponent<SkillCoolDown>().enabled = true;
     }
 
     // Update is called once per frame
