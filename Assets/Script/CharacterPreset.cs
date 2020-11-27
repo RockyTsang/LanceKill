@@ -197,9 +197,12 @@ public class CharacterPreset : MonoBehaviour
     {
         transform.position = SpawnPosition.position;
         HealthPoint = 100;
+        longAttackTimer = 0;
+        crushTimer = 0;
         transform.rotation = Quaternion.Euler(0, 0, 0);
         transform.Find("LeftHand").transform.position = transform.position + new Vector3(-0.1f, 0.1f, 0f);
         transform.Find("RightHand").transform.position = transform.position + new Vector3(0.1f, 0.1f, 0f);
+        transform.Find("Weapon(Clone)").GetComponent<Weapon>().Attacking = false;
         switch (WeaponType)
         {
             case WeaponSelect.Knife:

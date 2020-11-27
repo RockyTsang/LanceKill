@@ -85,6 +85,8 @@ public class CheckTeammate : MonoBehaviour
     {
         foreach(CharacterPreset person in teammates)
         {
+            person.longAttackTimer = 0;
+            person.crushTimer = 0;
             Destroy(person.gameObject);
         }
         teammates = new CharacterPreset[] { null };

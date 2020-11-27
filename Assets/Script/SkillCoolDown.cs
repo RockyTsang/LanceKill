@@ -17,7 +17,7 @@ public class SkillCoolDown : MonoBehaviour
     public Sprite[] IconSprites;
 
     // Start is called before the first frame update
-    void Start()
+    void OnEnable()
     {
         CDFrame = transform.Find("CDFrame").GetComponent<Image>();
         PresetScript = Me.GetComponent<CharacterPreset>();

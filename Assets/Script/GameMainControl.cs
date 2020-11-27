@@ -32,6 +32,7 @@ public class GameMainControl : MonoBehaviour
 
     public UIControl UILobby;
     public Announcement AnnouncementWindow;
+    public Text CountDownText;
 
     private int team1wincount;
     private int team2wincount;
@@ -111,7 +112,8 @@ public class GameMainControl : MonoBehaviour
         team2wincount = 0;
         Team1.GetComponent<CheckTeammate>().enabled = true;
         Team2.GetComponent<CheckTeammate>().enabled = true;
-        Invoke("EngageAllPlayer", 3f);
+        EngagingCountDown = 3;
+        InvokeRepeating("EngageAllPlayer", 1f, 1f);
     }
 
     // Update is called once per frame
@@ -190,22 +192,49 @@ public class GameMainControl : MonoBehaviour
     }
 
     // Start all player's movement
+    private int EngagingCountDown;
     void EngageAllPlayer()
     {
-        foreach(GameObject player in Players)
+        switch (EngagingCountDown)
         {
-            switch(player.GetComponent<CharacterPreset>().Type)
-            {
-                case CharacterPreset.Identity.Me:
-                    player.GetComponent<AvatarControl>().enabled = true;
-                    break;
-                case CharacterPreset.Identity.TestObject:
-                    break;
-                case CharacterPreset.Identity.AI:
-                    player.GetComponent<NonPlayerAI>().enabled = true;
-                    break;
-            }
-        }
+            case 3:
+                CountDownText.text = "3";
+                CountDownText.gameObject.SetActive(true);
+                EngagingCountDown--;
+                break;
+            case 2:
+                CountDownText.text = "2";
+                EngagingCountDown--;
+                break;
+            case 1:
+                CountDownText.text = "1";
+                EngagingCountDown--;
+                break;
+            case 0:
+                CountDownText.text = "Start!";
+                this.CancelInvoke();
+                foreach (GameObject player in Players)
+                {
+                    switch (player.GetComponent<CharacterPreset>().Type)
+                    {
+                        case CharacterPreset.Identity.Me:
+                            player.GetComponent<AvatarControl>().enabled = true;
+                            break;
+                        case CharacterPreset.Identity.TestObject:
+                            break;
+                        case CharacterPreset.Identity.AI:
+                            player.GetComponent<NonPlayerAI>().enabled = true;
+                            break;
+                    }
+                }
+                Invoke("CloseCountDown", 0.5f);
+                break;
+        } 
+    }
+
+    void CloseCountDown()
+    {
+        CountDownText.gameObject.SetActive(false);
     }
 
     IEnumerator ResetRound()
@@ -220,7 +249,8 @@ public class GameMainControl : MonoBehaviour
         Team2.surviving = true;
         yield return new WaitForSecondsRealtime(4);
         Time.timeScale = 1;
-        Invoke("EngageAllPlayer", 3f);
+        EngagingCountDown = 3;
+        InvokeRepeating("EngageAllPlayer", 1f, 1f);
     }
 
     IEnumerator EndGame(CharacterPreset.TeamSelect WinTeam)
@@ -228,6 +258,9 @@ public class GameMainControl : MonoBehaviour
         yield return new WaitForSecondsRealtime(3);
         Team1.DestroyPlayers();
         Team2.DestroyPlayers();
+        GameObject.Find("HPBarFrame").GetComponent<HPBar>().enabled = false;
+        GameObject.Find("LongAttackIcon").GetComponent<SkillCoolDown>().enabled = false;
+        GameObject.Find("CrushIcon").GetComponent<SkillCoolDown>().enabled = false;
         Team1.surviving = true;
         Team2.surviving = true;
         Team1.GetComponent<CheckTeammate>().enabled = false;
