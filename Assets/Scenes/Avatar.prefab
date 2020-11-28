@@ -164,6 +164,12 @@ MonoBehaviour:
   Controller: {fileID: 9100000, guid: 8da2e8d7851e4664fb4e8e490000230b, type: 2}
   SpawnPosition: {fileID: 0}
   HealthPoint: 0
+  crushCoolDown: 0
+  longAttackCoolDown: 0
+  moveSpeed: 0
+  longAttackCD: 0
+  longAttackTimer: 0
+  crushTimer: 0
 --- !u!1 &5810778667121346367
 GameObject:
   m_ObjectHideFlags: 0

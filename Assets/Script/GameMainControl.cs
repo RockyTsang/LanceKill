@@ -34,8 +34,8 @@ public class GameMainControl : MonoBehaviour
     public Announcement AnnouncementWindow;
     public Text CountDownText;
 
-    private int team1wincount;
-    private int team2wincount;
+    public int team1wincount;
+    public int team2wincount;
 
     // Start is called before the first frame update
     void OnEnable()
@@ -110,6 +110,8 @@ public class GameMainControl : MonoBehaviour
 
         team1wincount = 0;
         team2wincount = 0;
+        GameObject.Find("UpperPanel").GetComponent<UpperPanel>().Main = this;
+        GameObject.Find("UpperPanel").GetComponent<UpperPanel>().enabled = true;
         Team1.GetComponent<CheckTeammate>().enabled = true;
         Team2.GetComponent<CheckTeammate>().enabled = true;
         EngagingCountDown = 3;
@@ -261,6 +263,7 @@ public class GameMainControl : MonoBehaviour
         GameObject.Find("HPBarFrame").GetComponent<HPBar>().enabled = false;
         GameObject.Find("LongAttackIcon").GetComponent<SkillCoolDown>().enabled = false;
         GameObject.Find("CrushIcon").GetComponent<SkillCoolDown>().enabled = false;
+        GameObject.Find("UpperPanel").GetComponent<UpperPanel>().enabled = false;
         Team1.surviving = true;
         Team2.surviving = true;
         Team1.GetComponent<CheckTeammate>().enabled = false;
