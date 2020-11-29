@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.Animations;
 using UnityEngine;
+using UnityEngine.Animations;
 
 public class CharacterPreset : MonoBehaviour
 {
@@ -29,7 +29,7 @@ public class CharacterPreset : MonoBehaviour
     public WeaponSelect WeaponType;
     public GameObject WeaponPrefab;
     public GameObject SecondaryWeaponPrefab;
-    public AnimatorController Controller;
+    public RuntimeAnimatorController Controller;
     public Transform SpawnPosition;
     public int HealthPoint;
     private bool living;
