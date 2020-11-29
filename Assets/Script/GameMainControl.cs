@@ -151,13 +151,9 @@ public class GameMainControl : MonoBehaviour
                 }
                 AnnouncementWindow.gameObject.SetActive(true);
                 StartCoroutine(AnnouncementWindow.HideWindow(3));
-                if (team1wincount >= Mathf.Round((float)WinUnit / 2))
+                if (team1wincount >= Mathf.Round((float)WinUnit / 2) || team2wincount >= Mathf.Round((float)WinUnit / 2))
                 {
-                    StartCoroutine(EndGame(Team1.myTeam));
-                }
-                else if (team2wincount >= Mathf.Round((float)WinUnit / 2))
-                {
-                    StartCoroutine(EndGame(Team2.myTeam));
+                    StartCoroutine(EndGame());
                 }
                 else
                 {
@@ -169,7 +165,35 @@ public class GameMainControl : MonoBehaviour
         // Deadmatch mode
         if(Mode == GameModeSelect.KillCount4v4)
         {
-            
+            if(team1wincount >= WinUnit || team2wincount >= WinUnit)
+            {
+                // Pause
+                foreach (GameObject player in Players)
+                {
+                    if (player.GetComponent<CharacterPreset>().Type == CharacterPreset.Identity.Me)
+                    {
+                        player.GetComponent<AvatarControl>().enabled = false;
+                    }
+                    else if (player.GetComponent<CharacterPreset>().Type == CharacterPreset.Identity.AI)
+                    {
+                        player.GetComponent<NonPlayerAI>().enabled = false;
+                    }
+                }
+                Time.timeScale = 0;
+
+                // Determine win and lose
+                if (team1wincount >= WinUnit)
+                {
+                    AnnouncementWindow.ShowResult(Team1.myTeam.ToString(), team1wincount, team2wincount);
+                }
+                else if (team2wincount >= WinUnit)
+                {
+                    AnnouncementWindow.ShowResult(Team2.myTeam.ToString(), team1wincount, team2wincount);
+                }
+                AnnouncementWindow.gameObject.SetActive(true);
+                StartCoroutine(AnnouncementWindow.HideWindow(3));
+                StartCoroutine(EndGame());
+            }
         }
     }
 
@@ -239,6 +263,25 @@ public class GameMainControl : MonoBehaviour
         CountDownText.gameObject.SetActive(false);
     }
 
+    public void CallSlained(CharacterPreset PresetScript)
+    {
+        StartCoroutine(Slained(PresetScript));
+    }
+    
+    IEnumerator Slained(CharacterPreset PresetScript)
+    {
+        if(PresetScript.Team == MyTeam)
+        {
+            team2wincount++;
+        }else if(PresetScript.Team == EnemyTeam)
+        {
+            team1wincount++;
+        }
+        yield return new WaitForSecondsRealtime(3);
+        PresetScript.ResetBody();
+        PresetScript.gameObject.SetActive(true);
+    }
+
     IEnumerator ResetRound()
     {
         foreach (GameObject player in Players)
@@ -255,7 +298,7 @@ public class GameMainControl : MonoBehaviour
         InvokeRepeating("EngageAllPlayer", 1f, 1f);
     }
 
-    IEnumerator EndGame(CharacterPreset.TeamSelect WinTeam)
+    IEnumerator EndGame()
     {
         yield return new WaitForSecondsRealtime(3);
         Team1.DestroyPlayers();

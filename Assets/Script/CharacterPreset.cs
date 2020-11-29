@@ -180,7 +180,10 @@ public class CharacterPreset : MonoBehaviour
             if(HealthPoint <= 0)
             {
                 gameObject.SetActive(false);
-                
+                if(GameObject.Find("GameScene").GetComponent<GameMainControl>().Mode == GameMainControl.GameModeSelect.KillCount4v4)
+                {
+                    GameObject.Find("GameScene").GetComponent<GameMainControl>().CallSlained(this);
+                }
             }
         }
         if (gameObject.activeInHierarchy)
