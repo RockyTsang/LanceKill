@@ -5,10 +5,12 @@ using UnityEngine.UI;
 
 public class SystemSettings : MonoBehaviour
 {
+    public LanguageHandler[] Handlers;
+    
     // Start is called before the first frame update
     void Start()
     {
-        
+        Handlers = FindObjectsOfType<LanguageHandler>();
     }
 
     // Update is called once per frame
@@ -60,6 +62,31 @@ public class SystemSettings : MonoBehaviour
             default:
                 Screen.SetResolution(1920, 1080, false);
                 Debug.Log("Resolution Error!");
+                break;
+        }
+    }
+
+    public void SetLanguage(Dropdown LanguageDropdown)
+    {
+        switch (LanguageDropdown.value)
+        {
+            case 0:
+                foreach(LanguageHandler texts in Handlers)
+                {
+                    texts.language = LanguageHandler.LanguageSelection.English;
+                }
+                break;
+            case 1:
+                foreach (LanguageHandler texts in Handlers)
+                {
+                    texts.language = LanguageHandler.LanguageSelection.SimplifiedChinese;
+                }
+                break;
+            case 2:
+                foreach (LanguageHandler texts in Handlers)
+                {
+                    texts.language = LanguageHandler.LanguageSelection.TraditionalChinese;
+                }
                 break;
         }
     }
