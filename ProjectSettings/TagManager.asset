@@ -7,7 +7,6 @@ TagManager:
   - PartOfPlayer
   - Map
   - SpawnPoint
-  - Text
   layers:
   - Default
   - TransparentFX

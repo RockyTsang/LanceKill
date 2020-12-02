@@ -10,7 +10,7 @@ public class SystemSettings : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Handlers = FindObjectsOfType<LanguageHandler>();
+        Handlers = GameObject.FindObjectsOfType<LanguageHandler>(true);
     }
 
     // Update is called once per frame

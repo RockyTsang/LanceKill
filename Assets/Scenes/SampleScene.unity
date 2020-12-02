@@ -9314,6 +9314,7 @@ GameObject:
   - component: {fileID: 1173247919}
   - component: {fileID: 1173247921}
   - component: {fileID: 1173247920}
+  - component: {fileID: 1173247922}
   m_Layer: 5
   m_Name: TextSelectWeapon
   m_TagString: Untagged
@@ -9382,6 +9383,23 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1173247918}
   m_CullTransparentMesh: 0
+--- !u!114 &1173247922
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1173247918}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 36d33e4cc75333646a6f0506feb7c2c8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SettingsScript: {fileID: 0}
+  language: 0
+  English: 'Select weapon:'
+  SimplifiedChinese: "\u9009\u62E9\u6B66\u5668:"
+  TraditionalChinese: "\u9078\u64C7\u6B66\u5668:"
 --- !u!1 &1176556474
 GameObject:
   m_ObjectHideFlags: 0
@@ -14798,6 +14816,7 @@ GameObject:
   - component: {fileID: 1964016867}
   - component: {fileID: 1964016869}
   - component: {fileID: 1964016868}
+  - component: {fileID: 1964016870}
   m_Layer: 5
   m_Name: TextSelectTeam
   m_TagString: Untagged
@@ -14866,6 +14885,23 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1964016866}
   m_CullTransparentMesh: 0
+--- !u!114 &1964016870
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1964016866}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 36d33e4cc75333646a6f0506feb7c2c8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SettingsScript: {fileID: 0}
+  language: 0
+  English: 'Select team:'
+  SimplifiedChinese: "\u9009\u62E9\u961F\u4F0D:"
+  TraditionalChinese: "\u9078\u64C7\u968A\u4F0D:"
 --- !u!1 &1986201823
 GameObject:
   m_ObjectHideFlags: 0
