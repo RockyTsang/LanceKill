@@ -23,7 +23,7 @@ public class Announcement : MonoBehaviour
 
     public void ShowResult(string WinTeam, int team1count, int team2count)
     {
-        MainMessage.text = WinTeam + " team win!";
+        MainMessage.text = MainMessage.GetComponent<LanguageHandler>().ColorTranslate(WinTeam);
         switch (WinTeam)
         {
             case "Red":

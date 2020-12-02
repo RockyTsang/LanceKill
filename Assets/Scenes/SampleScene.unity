@@ -318,6 +318,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SettingsScript: {fileID: 0}
+  TypeOfText: 0
   language: 0
   English: Settings
   SimplifiedChinese: "\u8BBE\u7F6E"
@@ -1361,6 +1362,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SettingsScript: {fileID: 0}
+  TypeOfText: 0
   language: 0
   English: LANCE KILL
   SimplifiedChinese: "\u957F\u67AA\u4F9D\u5728"
@@ -1583,6 +1585,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SettingsScript: {fileID: 0}
+  TypeOfText: 0
   language: 0
   English: Start!
   SimplifiedChinese: "\u5F00\u59CB!"
@@ -2244,6 +2247,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SettingsScript: {fileID: 0}
+  TypeOfText: 0
   language: 0
   English: Start
   SimplifiedChinese: "\u8FDB\u5165\u6E38\u620F"
@@ -6327,6 +6331,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SettingsScript: {fileID: 0}
+  TypeOfText: 0
   language: 0
   English: Competitive 4v4
   SimplifiedChinese: "4v4\u56DE\u5408\u7ADE\u6280"
@@ -6506,6 +6511,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SettingsScript: {fileID: 0}
+  TypeOfText: 0
   language: 0
   English: Competitive 4v4  Win more rounds to reach success!
   SimplifiedChinese: "4v4\u56DE\u5408\u7ADE\u6280  \u5C3D\u53EF\u80FD\u6BD4\u5BF9\u65B9\u80DC\u51FA\u66F4\u591A\u56DE\u5408!"
@@ -6606,6 +6612,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SettingsScript: {fileID: 0}
+  TypeOfText: 0
   language: 0
   English: Team Deadmatch 4v4  Kill more and win more!
   SimplifiedChinese: "4v4\u56E2\u961F\u7ADE\u6280  \u5C3D\u53EF\u80FD\u51FB\u6740\u66F4\u591A\u654C\u4EBA!"
@@ -6915,6 +6922,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SettingsScript: {fileID: 0}
+  TypeOfText: 0
   language: 0
   English: Game Selection
   SimplifiedChinese: "\u5173\u5361\u9009\u62E9"
@@ -7280,6 +7288,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SettingsScript: {fileID: 0}
+  TypeOfText: 0
   language: 0
   English: Character
   SimplifiedChinese: "\u4EBA\u7269\u8BBE\u5B9A"
@@ -9396,6 +9405,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SettingsScript: {fileID: 0}
+  TypeOfText: 0
   language: 0
   English: 'Select weapon:'
   SimplifiedChinese: "\u9009\u62E9\u6B66\u5668:"
@@ -10491,6 +10501,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SettingsScript: {fileID: 0}
+  TypeOfText: 0
   language: 0
   English: 'Kills:'
   SimplifiedChinese: "\u6740\u654C\u6570:"
@@ -10588,6 +10599,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SettingsScript: {fileID: 0}
+  TypeOfText: 0
   language: 0
   English: Team deadmatch 4v4
   SimplifiedChinese: "4v4\u56E2\u961F\u7ADE\u6280"
@@ -10824,6 +10836,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SettingsScript: {fileID: 0}
+  TypeOfText: 0
   language: 0
   English: Exit
   SimplifiedChinese: "\u9000\u51FA\u6E38\u620F"
@@ -11419,6 +11432,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SettingsScript: {fileID: 0}
+  TypeOfText: 0
   language: 0
   English: 'Language:'
   SimplifiedChinese: "\u8BED\u8A00:"
@@ -11516,6 +11530,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SettingsScript: {fileID: 0}
+  TypeOfText: 0
   language: 0
   English: Settings
   SimplifiedChinese: "\u8BBE\u7F6E"
@@ -11750,6 +11765,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SettingsScript: {fileID: 0}
+  TypeOfText: 0
   language: 0
   English: 'Rounds:'
   SimplifiedChinese: "\u56DE\u5408\u6570:"
@@ -12183,6 +12199,7 @@ GameObject:
   - component: {fileID: 1636454448}
   - component: {fileID: 1636454447}
   - component: {fileID: 1636454446}
+  - component: {fileID: 1636454449}
   m_Layer: 0
   m_Name: StartCountdown
   m_TagString: Untagged
@@ -12251,6 +12268,24 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 500, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1636454449
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1636454445}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 36d33e4cc75333646a6f0506feb7c2c8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SettingsScript: {fileID: 0}
+  TypeOfText: 1
+  language: 0
+  English: Start!
+  SimplifiedChinese: "\u5F00\u59CB!"
+  TraditionalChinese: "\u958B\u59CB!"
 --- !u!1 &1638557954
 GameObject:
   m_ObjectHideFlags: 0
@@ -12344,6 +12379,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SettingsScript: {fileID: 0}
+  TypeOfText: 0
   language: 0
   English: 'Choose map:'
   SimplifiedChinese: "\u9009\u62E9\u5730\u56FE:"
@@ -13689,6 +13725,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SettingsScript: {fileID: 0}
+  TypeOfText: 0
   language: 0
   English: Game Mode
   SimplifiedChinese: "\u6A21\u5F0F\u9009\u62E9"
@@ -14074,6 +14111,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SettingsScript: {fileID: 0}
+  TypeOfText: 0
   language: 0
   English: 'Choose map:'
   SimplifiedChinese: "\u9009\u62E9\u5730\u56FE:"
@@ -14898,6 +14936,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SettingsScript: {fileID: 0}
+  TypeOfText: 0
   language: 0
   English: 'Select team:'
   SimplifiedChinese: "\u9009\u62E9\u961F\u4F0D:"
@@ -15193,6 +15232,7 @@ GameObject:
   - component: {fileID: 2030247787}
   - component: {fileID: 2030247789}
   - component: {fileID: 2030247788}
+  - component: {fileID: 2030247790}
   m_Layer: 0
   m_Name: MainMessage
   m_TagString: Untagged
@@ -15261,6 +15301,24 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2030247786}
   m_CullTransparentMesh: 0
+--- !u!114 &2030247790
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2030247786}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 36d33e4cc75333646a6f0506feb7c2c8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SettingsScript: {fileID: 0}
+  TypeOfText: 1
+  language: 0
+  English: ' team win!'
+  SimplifiedChinese: "\u961F\u83B7\u80DC!"
+  TraditionalChinese: "\u968A\u7372\u52DD!"
 --- !u!1 &2051436482
 GameObject:
   m_ObjectHideFlags: 0
@@ -15845,6 +15903,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SettingsScript: {fileID: 0}
+  TypeOfText: 0
   language: 0
   English: 'Resolution:'
   SimplifiedChinese: "\u5206\u8FA8\u7387:"

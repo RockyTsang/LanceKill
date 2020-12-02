@@ -237,7 +237,18 @@ public class GameMainControl : MonoBehaviour
                 EngagingCountDown--;
                 break;
             case 0:
-                CountDownText.text = "Start!";
+                switch (CountDownText.GetComponent<LanguageHandler>().language)
+                {
+                    case LanguageHandler.LanguageSelection.English:
+                        CountDownText.text = CountDownText.GetComponent<LanguageHandler>().English;
+                        break;
+                    case LanguageHandler.LanguageSelection.SimplifiedChinese:
+                        CountDownText.text = CountDownText.GetComponent<LanguageHandler>().SimplifiedChinese;
+                        break;
+                    case LanguageHandler.LanguageSelection.TraditionalChinese:
+                        CountDownText.text = CountDownText.GetComponent<LanguageHandler>().TraditionalChinese;
+                        break;
+                }
                 this.CancelInvoke();
                 foreach (GameObject player in Players)
                 {
