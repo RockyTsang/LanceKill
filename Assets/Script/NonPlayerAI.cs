@@ -67,18 +67,18 @@ public class NonPlayerAI : MonoBehaviour
         }
         else
         {
+            // Rotate to the position of enemy
+            Vector2 mypos2 = new Vector2(Camera.main.WorldToScreenPoint(gameObject.transform.position).x, Camera.main.WorldToScreenPoint(gameObject.transform.position).y);
+            Vector2 targetpos2 = new Vector2(Camera.main.WorldToScreenPoint(Nearest.transform.position).x, Camera.main.WorldToScreenPoint(Nearest.transform.position).y);
+            float angle = Vector2.SignedAngle(new Vector2(0, 1), targetpos2 - mypos2);
+            transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
             if (collideOnBlock)
             {
                 // Turn left if collide on block
-                transform.Translate(Vector2.left * PresetScript.moveSpeed * Time.deltaTime, Space.Self);
+                transform.Translate(Vector2.left * PresetScript.moveSpeed * Time.deltaTime, Space.World);
             }
             else
             {
-                // Rotate to the position of enemy
-                Vector2 mypos2 = new Vector2(Camera.main.WorldToScreenPoint(gameObject.transform.position).x, Camera.main.WorldToScreenPoint(gameObject.transform.position).y);
-                Vector2 targetpos2 = new Vector2(Camera.main.WorldToScreenPoint(Nearest.transform.position).x, Camera.main.WorldToScreenPoint(Nearest.transform.position).y);
-                float angle = Vector2.SignedAngle(new Vector2(0, 1), targetpos2 - mypos2);
-                transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
                 // Move to the position of enemy
                 transform.Translate(Vector2.up * PresetScript.moveSpeed * Time.deltaTime, Space.Self);
             }
