@@ -9,10 +9,13 @@ public class NonPlayerAI : MonoBehaviour
     public GameObject Nearest;
     public CharacterPreset PresetScript;
     private float attackDistance;
+    private bool collideOnBlock;
 
     // Start is called before the first frame update
     void Start()
     {
+        collideOnBlock = false;
+        
         AllChar = GameObject.FindGameObjectsWithTag("Player");
         PresetScript = gameObject.GetComponent<CharacterPreset>();
         switch (PresetScript.WeaponType)
@@ -64,13 +67,33 @@ public class NonPlayerAI : MonoBehaviour
         }
         else
         {
-            // Rotate to the position of enemy
-            Vector2 mypos2 = new Vector2(Camera.main.WorldToScreenPoint(gameObject.transform.position).x, Camera.main.WorldToScreenPoint(gameObject.transform.position).y);
-            Vector2 targetpos2 = new Vector2(Camera.main.WorldToScreenPoint(Nearest.transform.position).x, Camera.main.WorldToScreenPoint(Nearest.transform.position).y);
-            float angle = Vector2.SignedAngle(new Vector2(0, 1), targetpos2 - mypos2);
-            transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
-            // Move to the position of enemy
-            transform.Translate(Vector2.up * PresetScript.moveSpeed * Time.deltaTime, Space.Self);
+            if (collideOnBlock)
+            {
+                // Turn left if collide on block
+                transform.Translate(Vector2.left * PresetScript.moveSpeed * Time.deltaTime, Space.Self);
+            }
+            else
+            {
+                // Rotate to the position of enemy
+                Vector2 mypos2 = new Vector2(Camera.main.WorldToScreenPoint(gameObject.transform.position).x, Camera.main.WorldToScreenPoint(gameObject.transform.position).y);
+                Vector2 targetpos2 = new Vector2(Camera.main.WorldToScreenPoint(Nearest.transform.position).x, Camera.main.WorldToScreenPoint(Nearest.transform.position).y);
+                float angle = Vector2.SignedAngle(new Vector2(0, 1), targetpos2 - mypos2);
+                transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
+                // Move to the position of enemy
+                transform.Translate(Vector2.up * PresetScript.moveSpeed * Time.deltaTime, Space.Self);
+            }
         }
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if(collision.gameObject.GetComponent<Rigidbody2D>().bodyType == RigidbodyType2D.Static){
+            collideOnBlock = true;
+        }
+    }
+
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        collideOnBlock = false;
     }
 }
