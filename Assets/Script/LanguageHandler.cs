@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+[RequireComponent(typeof(Text))]
 public class LanguageHandler : MonoBehaviour
 {
     public SystemSettings SettingsScript;
-    
+
     public enum TextType
     {
         SimpleText,
@@ -86,6 +87,21 @@ public class LanguageHandler : MonoBehaviour
                 }
             default:
                 return "Color Translate Error!";
+        }
+    }
+
+    public string PreviewDescription(float skillCD)
+    {
+        switch (language)
+        {
+            case LanguageSelection.English:
+                return English + skillCD.ToString() + "s";
+            case LanguageSelection.SimplifiedChinese:
+                return SimplifiedChinese + skillCD.ToString() + "s";
+            case LanguageSelection.TraditionalChinese:
+                return TraditionalChinese + skillCD.ToString() + "s";
+            default:
+                return "Preview Description Error!";
         }
     }
 }

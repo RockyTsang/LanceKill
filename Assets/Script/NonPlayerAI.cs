@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(CharacterPreset))]
 public class NonPlayerAI : MonoBehaviour
 {
     public GameObject[] AllChar;

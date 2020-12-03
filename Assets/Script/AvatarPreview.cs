@@ -7,6 +7,7 @@ public class AvatarPreview : MonoBehaviour
 {
     public Dropdown Team;
     public Dropdown Weapon;
+    public Text SkillDescription;
     public Image LeftHand;
     public Image RightHand;
     public Image PrimaryWeapon;
@@ -48,6 +49,7 @@ public class AvatarPreview : MonoBehaviour
         switch (Weapon.value)
         {
             case 0:
+                SkillDescription.text = SkillDescription.GetComponent<LanguageHandler>().PreviewDescription(2);
                 PrimaryWeapon.sprite = WeaponSprites[0];
                 SecondaryWeapon.sprite = WeaponSprites[0];
                 PrimaryWeapon.transform.position = transform.position + new Vector3(60, 50, 0);
@@ -60,6 +62,7 @@ public class AvatarPreview : MonoBehaviour
                 SecondaryWeapon.gameObject.SetActive(true);
                 break;
             case 1:
+                SkillDescription.text = SkillDescription.GetComponent<LanguageHandler>().PreviewDescription(10);
                 PrimaryWeapon.sprite = WeaponSprites[1];
                 PrimaryWeapon.transform.position = transform.position + new Vector3(50, 100, 0);
                 PrimaryWeapon.transform.rotation = Quaternion.Euler(0, 0, 0);
@@ -68,6 +71,7 @@ public class AvatarPreview : MonoBehaviour
                 SecondaryWeapon.gameObject.SetActive(false);
                 break;
             case 2:
+                SkillDescription.text = SkillDescription.GetComponent<LanguageHandler>().PreviewDescription(5);
                 PrimaryWeapon.sprite = WeaponSprites[2];
                 PrimaryWeapon.transform.position = transform.position + new Vector3(-50, 50, 0);
                 PrimaryWeapon.transform.rotation = Quaternion.Euler(0, 0, 90);

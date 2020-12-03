@@ -107,6 +107,11 @@ public class EnterGame : MonoBehaviour
         }
     }
 
+    public void SetGameMode(Dropdown mode)
+    {
+        RoundsOrKills = mode;
+    }
+
     public void GameStart()
     {
         GameMainControl mainProcess = GameScene.GetComponent<GameMainControl>();
