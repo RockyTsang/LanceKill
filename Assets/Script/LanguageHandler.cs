@@ -16,9 +16,9 @@ public class LanguageHandler : MonoBehaviour
     public TextType TypeOfText;
     public enum LanguageSelection
     {
-        English,
-        SimplifiedChinese,
-        TraditionalChinese
+        English = 0,
+        SimplifiedChinese = 1,
+        TraditionalChinese = 2
     }
     public LanguageSelection language;
     public string English;
@@ -26,9 +26,20 @@ public class LanguageHandler : MonoBehaviour
     public string TraditionalChinese;
     
     // Start is called before the first frame update
-    void Start()
+    void OnEnable()
     {
-        
+        switch (PlayerPrefs.GetInt("Language"))
+        {
+            case 0:
+                language = LanguageSelection.English;
+                break;
+            case 1:
+                language = LanguageSelection.SimplifiedChinese;
+                break;
+            case 2:
+                language = LanguageSelection.TraditionalChinese;
+                break;
+        }
     }
 
     // Update is called once per frame

@@ -5474,10 +5474,10 @@ MonoBehaviour:
       - m_Target: {fileID: 1092514589}
         m_TargetAssemblyTypeName: SystemSettings, Assembly-CSharp
         m_MethodName: SetLanguage
-        m_Mode: 2
+        m_Mode: 1
         m_Arguments:
-          m_ObjectArgument: {fileID: 635844966}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Dropdown, UnityEngine.UI
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -9014,6 +9014,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Handlers: []
+  ResolutionDropdown: {fileID: 1809118924}
+  LanguageDropdown: {fileID: 635844966}
 --- !u!1 &1110990123
 GameObject:
   m_ObjectHideFlags: 0
@@ -13905,10 +13907,10 @@ MonoBehaviour:
       - m_Target: {fileID: 1092514589}
         m_TargetAssemblyTypeName: SystemSettings, Assembly-CSharp
         m_MethodName: SetResolution
-        m_Mode: 2
+        m_Mode: 1
         m_Arguments:
-          m_ObjectArgument: {fileID: 1809118924}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Dropdown, UnityEngine.UI
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
