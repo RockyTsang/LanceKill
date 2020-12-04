@@ -35,6 +35,7 @@ public class GameMainControl : MonoBehaviour
     public GameObject PauseWindow;
     private bool PauseWindowActive = false;
     public Text CountDownText;
+    private bool Countingdown = false;
 
     public int team1wincount;
     public int team2wincount;
@@ -123,19 +124,21 @@ public class GameMainControl : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        PauseWindowActive = PauseWindow.activeInHierarchy;
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            if (!PauseWindowActive)
+            if (!Countingdown)
             {
-                PauseWindow.SetActive(true);
-                PauseWindowActive = true;
-                PauseGame();
-            }
-            else
-            {
-                PauseWindow.SetActive(false);
-                PauseWindowActive = false;
-                ResumeGame();
+                if (!PauseWindowActive)
+                {
+                    PauseWindow.SetActive(true);
+                    PauseGame();
+                }
+                else
+                {
+                    PauseWindow.SetActive(false);
+                    ResumeGame();
+                }
             }
         }
     }
@@ -224,6 +227,7 @@ public class GameMainControl : MonoBehaviour
             case 3:
                 CountDownText.text = "3";
                 CountDownText.gameObject.SetActive(true);
+                Countingdown = true;
                 EngagingCountDown--;
                 break;
             case 2:
@@ -270,6 +274,7 @@ public class GameMainControl : MonoBehaviour
     void CloseCountDown()
     {
         CountDownText.gameObject.SetActive(false);
+        Countingdown = false;
     }
 
     public void CallSlained(CharacterPreset PresetScript)
