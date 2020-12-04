@@ -32,6 +32,8 @@ public class GameMainControl : MonoBehaviour
 
     public UIControl UILobby;
     public Announcement AnnouncementWindow;
+    public GameObject PauseWindow;
+    private bool PauseWindowActive = false;
     public Text CountDownText;
 
     public int team1wincount;
@@ -119,25 +121,33 @@ public class GameMainControl : MonoBehaviour
     }
 
     // Update is called once per frame
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            if (!PauseWindowActive)
+            {
+                PauseWindow.SetActive(true);
+                PauseWindowActive = true;
+                PauseGame();
+            }
+            else
+            {
+                PauseWindow.SetActive(false);
+                PauseWindowActive = false;
+                ResumeGame();
+            }
+        }
+    }
+
     void FixedUpdate()
     {
         // Turn-based mode
-        if(Mode == GameModeSelect.Rounded4v4)
+        if (Mode == GameModeSelect.Rounded4v4)
         {
             if(Team1.surviving != Team2.surviving)
             {
-                // Pause
-                foreach (GameObject player in Players)
-                {
-                    if(player.GetComponent<CharacterPreset>().Type == CharacterPreset.Identity.Me)
-                    {
-                        player.GetComponent<AvatarControl>().enabled = false;
-                    }else if(player.GetComponent<CharacterPreset>().Type == CharacterPreset.Identity.AI)
-                    {
-                        player.GetComponent<NonPlayerAI>().enabled = false;
-                    }
-                }
-                Time.timeScale = 0;
+                PauseGame();
                 
                 // Determine win and lose
                 if (Team1.surviving && !Team2.surviving)
@@ -153,7 +163,7 @@ public class GameMainControl : MonoBehaviour
                 StartCoroutine(AnnouncementWindow.HideWindow(3));
                 if (team1wincount >= Mathf.Round((float)WinUnit / 2) || team2wincount >= Mathf.Round((float)WinUnit / 2))
                 {
-                    StartCoroutine(EndGame());
+                    StartCoroutine(EndGame(3));
                 }
                 else
                 {
@@ -167,19 +177,7 @@ public class GameMainControl : MonoBehaviour
         {
             if(team1wincount >= WinUnit || team2wincount >= WinUnit)
             {
-                // Pause
-                foreach (GameObject player in Players)
-                {
-                    if (player.GetComponent<CharacterPreset>().Type == CharacterPreset.Identity.Me)
-                    {
-                        player.GetComponent<AvatarControl>().enabled = false;
-                    }
-                    else if (player.GetComponent<CharacterPreset>().Type == CharacterPreset.Identity.AI)
-                    {
-                        player.GetComponent<NonPlayerAI>().enabled = false;
-                    }
-                }
-                Time.timeScale = 0;
+                PauseGame();
 
                 // Determine win and lose
                 if (team1wincount >= WinUnit)
@@ -192,7 +190,7 @@ public class GameMainControl : MonoBehaviour
                 }
                 AnnouncementWindow.gameObject.SetActive(true);
                 StartCoroutine(AnnouncementWindow.HideWindow(3));
-                StartCoroutine(EndGame());
+                StartCoroutine(EndGame(3));
             }
         }
     }
@@ -293,6 +291,52 @@ public class GameMainControl : MonoBehaviour
         PresetScript.gameObject.SetActive(true);
     }
 
+    public void PauseWindowCallBack(bool quit)
+    {
+        if (quit)
+        {
+            PauseWindow.SetActive(false);
+            StartCoroutine(EndGame(0));
+        }
+        else
+        {
+            PauseWindow.SetActive(false);
+            ResumeGame();
+        }
+    }
+
+    void PauseGame()
+    {
+        foreach (GameObject player in Players)
+        {
+            if (player.GetComponent<CharacterPreset>().Type == CharacterPreset.Identity.Me)
+            {
+                player.GetComponent<AvatarControl>().enabled = false;
+            }
+            else if (player.GetComponent<CharacterPreset>().Type == CharacterPreset.Identity.AI)
+            {
+                player.GetComponent<NonPlayerAI>().enabled = false;
+            }
+        }
+        Time.timeScale = 0;
+    }
+    
+    void ResumeGame()
+    {
+        foreach (GameObject player in Players)
+        {
+            if (player.GetComponent<CharacterPreset>().Type == CharacterPreset.Identity.Me)
+            {
+                player.GetComponent<AvatarControl>().enabled = true;
+            }
+            else if (player.GetComponent<CharacterPreset>().Type == CharacterPreset.Identity.AI)
+            {
+                player.GetComponent<NonPlayerAI>().enabled = true;
+            }
+        }
+        Time.timeScale = 1;
+    }
+
     IEnumerator ResetRound()
     {
         foreach (GameObject player in Players)
@@ -309,9 +353,9 @@ public class GameMainControl : MonoBehaviour
         InvokeRepeating("EngageAllPlayer", 1f, 1f);
     }
 
-    IEnumerator EndGame()
+    IEnumerator EndGame(float waitTime)
     {
-        yield return new WaitForSecondsRealtime(3);
+        yield return new WaitForSecondsRealtime(waitTime);
         Team1.DestroyPlayers();
         Team2.DestroyPlayers();
         GameObject.Find("HPBarFrame").GetComponent<HPBar>().enabled = false;
