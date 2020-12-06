@@ -18,6 +18,7 @@ public class AvatarControl : MonoBehaviour
         GameObject.Find("HPBarFrame").GetComponent<HPBar>().enabled = true;
         GameObject.Find("LongAttackIcon").GetComponent<SkillCoolDown>().enabled = true;
         GameObject.Find("CrushIcon").GetComponent<SkillCoolDown>().enabled = true;
+        GameObject.Find("HealIcon").GetComponent<SkillCoolDown>().enabled = true;
     }
 
     // Update is called once per frame

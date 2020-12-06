@@ -214,7 +214,7 @@ public class CharacterPreset : MonoBehaviour
     public void ResetBody()
     {
         transform.position = SpawnPosition.position;
-        HealthPoint = 100;
+        HealthPoint = 200;
         longAttackTimer = 0;
         crushTimer = 0;
         transform.rotation = Quaternion.Euler(0, 0, 0);
