@@ -6,6 +6,7 @@ public class Weapon : MonoBehaviour
 {
     public bool Attacking;
     public CharacterPreset.WeaponSelect WeaponType;
+    public int Damage;
     public Sprite[] WeaponBody;
 
     // Start is called before the first frame update
@@ -57,11 +58,11 @@ public class Weapon : MonoBehaviour
                         collision.gameObject.GetComponent<Rigidbody2D>().AddForce(angle * 500f);
                         if (collision.gameObject.GetComponentInChildren<Weapon>().Attacking)
                         {
-                            HitTarget.HealthPoint -= 5;
+                            HitTarget.HealthPoint -= (Damage - 10 - HitTarget.armor);
                         }
                         else
                         {
-                            HitTarget.HealthPoint -= 15;
+                            HitTarget.HealthPoint -= (Damage - HitTarget.armor);
                         }
                     }
                 }

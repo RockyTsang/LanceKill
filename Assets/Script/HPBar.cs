@@ -18,7 +18,7 @@ public class HPBar : MonoBehaviour
     {
         if (Me)
         {
-            transform.Find("HPBar").GetComponent<Image>().fillAmount = (float)Me.GetComponent<CharacterPreset>().HealthPoint / 100;
+            transform.Find("HPBar").GetComponent<Image>().fillAmount = (float)Me.GetComponent<CharacterPreset>().HealthPoint / 200;
         }
     }
 }

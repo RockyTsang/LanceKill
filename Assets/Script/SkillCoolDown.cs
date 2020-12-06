@@ -11,7 +11,8 @@ public class SkillCoolDown : MonoBehaviour
     public enum SkillSet
     {
         LongAttack,
-        Crush
+        Crush,
+        Heal
     }
     public SkillSet SkillHandler;
     public Sprite[] IconSprites;
@@ -29,6 +30,9 @@ public class SkillCoolDown : MonoBehaviour
             case "CrushIcon":
                 SkillHandler = SkillSet.Crush;
                 break;
+            case "HealIcon":
+                SkillHandler = SkillSet.Heal;
+                break;
         }
     }
 
@@ -44,6 +48,9 @@ public class SkillCoolDown : MonoBehaviour
                     break;
                 case SkillSet.Crush:
                     CDFrame.fillAmount = PresetScript.crushTimer / 5f;
+                    break;
+                case SkillSet.Heal:
+                    CDFrame.fillAmount = PresetScript.healTimer / 20f;
                     break;
             }
         }

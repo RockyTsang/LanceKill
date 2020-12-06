@@ -14,6 +14,7 @@ public class AvatarControl : MonoBehaviour
         GameObject.Find("HPBarFrame").GetComponent<HPBar>().Me = gameObject;
         GameObject.Find("LongAttackIcon").GetComponent<SkillCoolDown>().Me = gameObject;
         GameObject.Find("CrushIcon").GetComponent<SkillCoolDown>().Me = gameObject;
+        GameObject.Find("HealIcon").GetComponent<SkillCoolDown>().Me = gameObject;
         GameObject.Find("HPBarFrame").GetComponent<HPBar>().enabled = true;
         GameObject.Find("LongAttackIcon").GetComponent<SkillCoolDown>().enabled = true;
         GameObject.Find("CrushIcon").GetComponent<SkillCoolDown>().enabled = true;
@@ -29,7 +30,7 @@ public class AvatarControl : MonoBehaviour
             transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
         }
 
-        if (Input.GetKeyDown(KeyCode.LeftShift) && !PresetScript.crushCoolDown)// Press shift to crush
+        if (Input.GetKeyDown(KeyCode.LeftShift))// Press shift to crush
         {
             StartCoroutine(PresetScript.Crush());
         }
@@ -59,6 +60,11 @@ public class AvatarControl : MonoBehaviour
         if (Input.GetMouseButtonDown(1))
         {
             StartCoroutine(PresetScript.LongAttack());
+        }
+        // Heal
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            StartCoroutine(PresetScript.Heal());
         }
     }
 }

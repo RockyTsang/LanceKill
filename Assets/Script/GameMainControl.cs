@@ -24,6 +24,7 @@ public class GameMainControl : MonoBehaviour
     public CharacterPreset.TeamSelect EnemyTeam;
     public CheckTeammate Team2;
     public CharacterPreset.WeaponSelect MyWeapon;
+    public int MyArmor;
     public GameObject[] Maps;
     public GameObject[] SpawnPoints;
     public GameObject Avatar;
@@ -96,6 +97,7 @@ public class GameMainControl : MonoBehaviour
                 {
                     Players[i].GetComponent<CharacterPreset>().Type = CharacterPreset.Identity.Me;
                     Players[i].GetComponent<CharacterPreset>().WeaponType = MyWeapon;
+                    Players[i].GetComponent<CharacterPreset>().armor = MyArmor;
                 }
                 else
                 {
@@ -201,8 +203,9 @@ public class GameMainControl : MonoBehaviour
     // Random set weapon
     void GenerateIDAndWeapon(int i)
     {
-        System.Random WeaponRandomSeed = new System.Random(System.DateTime.Now.Millisecond);
-        int RandWeapon = WeaponRandomSeed.Next(0, 3);
+        System.Random RandomSeed = new System.Random(System.DateTime.Now.Millisecond);
+        int RandWeapon = RandomSeed.Next(0, 3);
+        int RandArmor = RandomSeed.Next(0, 3);
         switch (RandWeapon)
         {
             case 0:
@@ -213,6 +216,18 @@ public class GameMainControl : MonoBehaviour
                 break;
             case 2:
                 Players[i].GetComponent<CharacterPreset>().WeaponType = CharacterPreset.WeaponSelect.Spear;
+                break;
+        }
+        switch (RandArmor)
+        {
+            case 0:
+                Players[i].GetComponent<CharacterPreset>().armor = 0;
+                break;
+            case 1:
+                Players[i].GetComponent<CharacterPreset>().armor = 10;
+                break;
+            case 2:
+                Players[i].GetComponent<CharacterPreset>().armor = 20;
                 break;
         }
         Players[i].GetComponent<CharacterPreset>().Type = CharacterPreset.Identity.AI;

@@ -15,6 +15,8 @@ public class EnterGame : MonoBehaviour
     private CharacterPreset.TeamSelect EnemyTeam;
     public Dropdown WeaponSelection;
     private CharacterPreset.WeaponSelect MyWeapon;
+    public Dropdown ArmorSelection;
+    private int MyArmor;
     public Dropdown RoundsOrKills;
     private int WinUnit;
     
@@ -105,6 +107,18 @@ public class EnterGame : MonoBehaviour
                 MyWeapon = CharacterPreset.WeaponSelect.Spear;
                 break;
         }
+        switch (ArmorSelection.value)
+        {
+            case 0:
+                MyArmor = 0;
+                break;
+            case 1:
+                MyArmor = 10;
+                break;
+            case 2:
+                MyArmor = 20;
+                break;
+        }
     }
 
     public void SetGameMode(Dropdown mode)
@@ -119,6 +133,7 @@ public class EnterGame : MonoBehaviour
         mainProcess.MyTeam = MyTeam;
         mainProcess.EnemyTeam = EnemyTeam;
         mainProcess.MyWeapon = MyWeapon;
+        mainProcess.MyArmor = MyArmor;
         mainProcess.WinUnit = WinUnit;
         UIScene.SetActive(false);
         GameScene.SetActive(true);

@@ -36,28 +36,33 @@ public class CharacterPreset : MonoBehaviour
 
     public bool crushCoolDown;
     public bool longAttackCoolDown;
+    public bool healCoolDown;
     public float moveSpeed;
     private string attackAnimation;
     private string longAttackAnimation;
+    private int attackDamage;
+    private int longAttackDamage;
     private float attackSpeed;
     private float longAttackSpeed;
     public float longAttackCD;
+    public int armor;
 
     public float longAttackTimer;
     public float crushTimer;
+    public float healTimer;
 
     void OnEnable()
     {
         crushCoolDown = false;
         longAttackCoolDown = false;
-        moveSpeed = 0.5f;
+        moveSpeed = 0.6f - ((float)armor / 100);
     }
 
     // Start is called before the first frame update
     void Start()
     {
         // Set player HP
-        HealthPoint = 100;
+        HealthPoint = 200;
         living = true;
 
         // Set player color
@@ -125,6 +130,8 @@ public class CharacterPreset : MonoBehaviour
                 transform.Find("SecondaryWeapon(Clone)").gameObject.SetActive(true);
                 attackAnimation = "KnifeAttack";
                 longAttackAnimation = "KnifeLongAttack";
+                attackDamage = 50;
+                longAttackDamage = 30;
                 attackSpeed = 0.333f;
                 longAttackSpeed = 0.5f;
                 longAttackCD = 2f;
@@ -135,6 +142,8 @@ public class CharacterPreset : MonoBehaviour
                 transform.Find("SecondaryWeapon(Clone)").GetComponent<SecondaryWeapon>().PrimaryWeapon = transform.Find("Weapon(Clone)").gameObject;
                 attackAnimation = "SwordAttack";
                 longAttackAnimation = "SwordLongAttack";
+                attackDamage = 30;
+                longAttackDamage = 50;
                 attackSpeed = 0.75f;
                 longAttackSpeed = 1.5f;
                 longAttackCD = 10f;
@@ -143,6 +152,8 @@ public class CharacterPreset : MonoBehaviour
                 Instantiate(WeaponPrefab, transform.position + new Vector3(-0.1f, 0.1f, 0), Quaternion.Euler(0, 0, 90), transform);
                 attackAnimation = "SpearAttack";
                 longAttackAnimation = "SpearLongAttack";
+                attackDamage = 40;
+                longAttackDamage = 40;
                 attackSpeed = 1f;
                 longAttackSpeed = 1f;
                 longAttackCD = 5f;
@@ -174,6 +185,10 @@ public class CharacterPreset : MonoBehaviour
         if(crushTimer > 0)
         {
             crushTimer -= Time.deltaTime;
+        }
+        if(healTimer > 0)
+        {
+            healTimer -= Time.deltaTime;
         }
         if (living)
         {
@@ -232,9 +247,10 @@ public class CharacterPreset : MonoBehaviour
     {
         if (!GetComponentInChildren<Weapon>().Attacking)
         {
+            GetComponentInChildren<Weapon>().Damage = attackDamage;
             this.GetComponentInChildren<Animator>().Play(attackAnimation);
             GetComponentInChildren<Weapon>().Attacking = true;
-            yield return new WaitForSecondsRealtime(attackSpeed);
+            yield return new WaitForSeconds(attackSpeed);
             GetComponentInChildren<Weapon>().Attacking = false;
         }
     }
@@ -243,25 +259,48 @@ public class CharacterPreset : MonoBehaviour
     {
         if (!longAttackCoolDown && !GetComponentInChildren<Weapon>().Attacking)
         {
+            GetComponentInChildren<Weapon>().Damage = longAttackDamage;
             this.GetComponentInChildren<Animator>().Play(longAttackAnimation);
             GetComponentInChildren<Weapon>().Attacking = true;
             longAttackCoolDown = true;
-            yield return new WaitForSecondsRealtime(longAttackSpeed);
+            yield return new WaitForSeconds(longAttackSpeed);
             GetComponentInChildren<Weapon>().Attacking = false;
             longAttackTimer = longAttackCD;
-            yield return new WaitForSecondsRealtime(longAttackCD);
+            yield return new WaitForSeconds(longAttackCD);
             longAttackCoolDown = false;
         }
     }
 
     public IEnumerator Crush()
     {
-        moveSpeed += 2.5f;
-        crushCoolDown = true;// Lock the crush until cool down end
-        yield return new WaitForSecondsRealtime(0.5f);
-        moveSpeed -= 2.5f;
-        crushTimer = 5f;
-        yield return new WaitForSecondsRealtime(5f);
-        crushCoolDown = false;
+        if (!crushCoolDown)
+        {
+            moveSpeed += 2.5f;
+            crushCoolDown = true;// Lock the crush until cool down end
+            yield return new WaitForSeconds(0.5f);
+            moveSpeed -= 2.5f;
+            crushTimer = 5f;
+            yield return new WaitForSeconds(5f);
+            crushCoolDown = false;
+        }
+    }
+
+    public IEnumerator Heal()
+    {
+        if (!healCoolDown)
+        {
+            if(HealthPoint > 150)
+            {
+                HealthPoint = 200;
+            }
+            else
+            {
+                HealthPoint += 50;
+            }
+            healCoolDown = true;
+            healTimer = 20f;
+            yield return new WaitForSeconds(20f);
+            healCoolDown = false;
+        }
     }
 }
