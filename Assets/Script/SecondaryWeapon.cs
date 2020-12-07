@@ -6,6 +6,7 @@ public class SecondaryWeapon : MonoBehaviour
 {
     public GameObject PrimaryWeapon;
     public CharacterPreset.WeaponSelect WeaponType;
+    private int Damage;
     public Sprite[] WeaponBody;
 
     // Start is called before the first frame update
@@ -27,13 +28,17 @@ public class SecondaryWeapon : MonoBehaviour
             case CharacterPreset.WeaponSelect.Spear:
                 Debug.Log("Secondary Spear?");
                 break;
+            case CharacterPreset.WeaponSelect.Musou:
+                gameObject.GetComponent<SpriteRenderer>().sprite = WeaponBody[2];
+                gameObject.GetComponent<BoxCollider2D>().size = new Vector2(0.5f, 5.12f);
+                break;
         }
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        Damage = PrimaryWeapon.GetComponent<Weapon>().Damage;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -54,11 +59,11 @@ public class SecondaryWeapon : MonoBehaviour
                         collision.gameObject.GetComponent<Rigidbody2D>().AddForce(angle * 500f);
                         if (collision.gameObject.GetComponentInChildren<Weapon>().Attacking)
                         {
-                            HitTarget.HealthPoint -= 5;
+                            HitTarget.HealthPoint -= (Damage - 10 - HitTarget.armor);
                         }
                         else
                         {
-                            HitTarget.HealthPoint -= 15;
+                            HitTarget.HealthPoint -= (Damage - HitTarget.armor);
                         }
                     }
                 }

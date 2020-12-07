@@ -30,6 +30,10 @@ public class Weapon : MonoBehaviour
                 gameObject.GetComponent<SpriteRenderer>().sprite = WeaponBody[2];
                 gameObject.GetComponent<BoxCollider2D>().size = new Vector2(0.5f, 5.12f);
                 break;
+            case CharacterPreset.WeaponSelect.Musou:
+                gameObject.GetComponent<SpriteRenderer>().sprite = WeaponBody[2];
+                gameObject.GetComponent<BoxCollider2D>().size = new Vector2(0.5f, 5.12f);
+                break;
         }
 
     }

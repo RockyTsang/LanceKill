@@ -82,6 +82,9 @@ public class GameMainControl : MonoBehaviour
             case CharacterPreset.WeaponSelect.Spear:
                 GameObject.Find("LongAttackIcon").GetComponent<Image>().sprite = GameObject.Find("LongAttackIcon").GetComponent<SkillCoolDown>().IconSprites[2];
                 break;
+            case CharacterPreset.WeaponSelect.Musou:
+                GameObject.Find("LongAttackIcon").GetComponent<Image>().sprite = GameObject.Find("LongAttackIcon").GetComponent<SkillCoolDown>().IconSprites[3];
+                break;
         }
 
         // Set identity of avatars

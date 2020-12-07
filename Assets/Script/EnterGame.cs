@@ -106,6 +106,9 @@ public class EnterGame : MonoBehaviour
             case 2:
                 MyWeapon = CharacterPreset.WeaponSelect.Spear;
                 break;
+            case 3:
+                MyWeapon = CharacterPreset.WeaponSelect.Musou;
+                break;
         }
         switch (ArmorSelection.value)
         {

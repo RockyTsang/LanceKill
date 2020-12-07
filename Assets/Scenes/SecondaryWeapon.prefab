@@ -99,9 +99,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PrimaryWeapon: {fileID: 0}
   WeaponType: 0
+  Damage: 0
   WeaponBody:
   - {fileID: 21300000, guid: 75032f1ea57eb32488bfef40650eb56f, type: 3}
   - {fileID: 21300000, guid: 46db22fe74ac6a542b96ed661535c6a1, type: 3}
+  - {fileID: 21300000, guid: c10453aaf9df0d845b67919341e1b4b6, type: 3}
 --- !u!50 &5131075086273149623
 Rigidbody2D:
   serializedVersion: 4

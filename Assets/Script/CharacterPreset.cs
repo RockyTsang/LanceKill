@@ -24,7 +24,8 @@ public class CharacterPreset : MonoBehaviour
     {
         Knife,
         Sword,
-        Spear
+        Spear,
+        Musou
     }
     public WeaponSelect WeaponType;
     public GameObject WeaponPrefab;
@@ -158,6 +159,21 @@ public class CharacterPreset : MonoBehaviour
                 longAttackSpeed = 1f;
                 longAttackCD = 5f;
                 break;
+            case WeaponSelect.Musou:
+                transform.Find("LeftHand").transform.position = transform.position + new Vector3(-0.15f, 0, 0);
+                transform.Find("RightHand").transform.position = transform.position + new Vector3(0.15f, 0, 0);
+                Instantiate(WeaponPrefab, transform.position + new Vector3(0.15f, 0, 0), Quaternion.Euler(0, 0, 0), transform);
+                Instantiate(SecondaryWeaponPrefab, transform.position + new Vector3(-0.15f, 0, 0), Quaternion.Euler(0, 0, 0), transform);
+                transform.Find("SecondaryWeapon(Clone)").GetComponent<SecondaryWeapon>().PrimaryWeapon = transform.Find("Weapon(Clone)").gameObject;
+                transform.Find("SecondaryWeapon(Clone)").gameObject.SetActive(true);
+                attackAnimation = "MusouAttack";
+                longAttackAnimation = "MusouLongAttack";
+                attackDamage = 30;
+                longAttackDamage = 60;
+                attackSpeed = 1f;
+                longAttackSpeed = 1f;
+                longAttackCD = 5;
+                break;
         }
         gameObject.GetComponent<Animator>().runtimeAnimatorController = Controller; 
 
@@ -219,18 +235,20 @@ public class CharacterPreset : MonoBehaviour
         crushTimer = 0;
         healTimer = 0;
         transform.rotation = Quaternion.Euler(0, 0, 0);
-        transform.Find("LeftHand").transform.position = transform.position + new Vector3(-0.1f, 0.1f, 0f);
-        transform.Find("RightHand").transform.position = transform.position + new Vector3(0.1f, 0.1f, 0f);
         transform.Find("Weapon(Clone)").GetComponent<Weapon>().Attacking = false;
         switch (WeaponType)
         {
             case WeaponSelect.Knife:
+                transform.Find("LeftHand").transform.position = transform.position + new Vector3(-0.1f, 0.1f, 0f);
+                transform.Find("RightHand").transform.position = transform.position + new Vector3(0.1f, 0.1f, 0f);
                 transform.Find("Weapon(Clone)").transform.position = transform.position + new Vector3(0.12f, 0.1f, 0);
                 transform.Find("Weapon(Clone)").transform.rotation = Quaternion.Euler(0, 0, -90);
                 transform.Find("SecondaryWeapon(Clone)").transform.position = transform.position + new Vector3(-0.12f, 0.1f, 0);
                 transform.Find("SecondaryWeapon(Clone)").transform.rotation = Quaternion.Euler(0, 0, 90);
                 break;
             case WeaponSelect.Sword:
+                transform.Find("LeftHand").transform.position = transform.position + new Vector3(-0.1f, 0.1f, 0f);
+                transform.Find("RightHand").transform.position = transform.position + new Vector3(0.1f, 0.1f, 0f);
                 transform.Find("Weapon(Clone)").transform.position = transform.position + new Vector3(0.1f, 0.2f, 0);
                 transform.Find("Weapon(Clone)").transform.rotation = Quaternion.Euler(0, 0, 0);
                 transform.Find("SecondaryWeapon(Clone)").transform.position = transform.position + new Vector3(0.1f, 0.2f, 0);
@@ -238,8 +256,18 @@ public class CharacterPreset : MonoBehaviour
                 transform.Find("SecondaryWeapon(Clone)").gameObject.SetActive(false);
                 break;
             case WeaponSelect.Spear:
+                transform.Find("LeftHand").transform.position = transform.position + new Vector3(-0.1f, 0.1f, 0f);
+                transform.Find("RightHand").transform.position = transform.position + new Vector3(0.1f, 0.1f, 0f);
                 transform.Find("Weapon(Clone)").transform.position = transform.position + new Vector3(-0.1f, 0.1f, 0);
                 transform.Find("Weapon(Clone)").transform.rotation = Quaternion.Euler(0, 0, 90);
+                break;
+            case WeaponSelect.Musou:
+                transform.Find("LeftHand").transform.position = transform.position + new Vector3(-0.15f, 0f, 0f);
+                transform.Find("RightHand").transform.position = transform.position + new Vector3(0.15f, 0f, 0f);
+                transform.Find("Weapon(Clone)").transform.position = transform.position + new Vector3(0.15f, 0f, 0);
+                transform.Find("Weapon(Clone)").transform.rotation = Quaternion.Euler(0, 0, 0);
+                transform.Find("SecondaryWeapon(Clone)").transform.position = transform.position + new Vector3(-0.15f, 0f, 0);
+                transform.Find("SecondaryWeapon(Clone)").transform.rotation = Quaternion.Euler(0, 0, 0);
                 break;
         }
     }

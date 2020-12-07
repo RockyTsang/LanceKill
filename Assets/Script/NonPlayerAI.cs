@@ -83,6 +83,11 @@ public class NonPlayerAI : MonoBehaviour
                 transform.Translate(Vector2.up * PresetScript.moveSpeed * Time.deltaTime, Space.Self);
             }
         }
+
+        if(PresetScript.HealthPoint <= 100)
+        {
+            StartCoroutine(PresetScript.Heal());
+        }
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
