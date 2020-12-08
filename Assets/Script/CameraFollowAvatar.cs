@@ -5,6 +5,8 @@ using UnityEngine;
 public class CameraFollowAvatar : MonoBehaviour
 {
     private GameObject MyAvatar;
+    private GameObject[] PlayerList;
+    private PointingArrow[] ArrowList;
     private GameObject ObservingTeammate;
     public Transform playerTransform; // 移动的物体
     public Vector3 deviation; // 偏移量
@@ -12,11 +14,24 @@ public class CameraFollowAvatar : MonoBehaviour
     // Start is called before the first frame update
     void OnEnable()
     {
-        foreach(GameObject Avatar in GetComponentInParent<GameMainControl>().Players)
+        PlayerList = GetComponentInParent<GameMainControl>().Players;
+        ArrowList = GameObject.Find("ArrowGroup").GetComponentsInChildren<PointingArrow>();
+        foreach(GameObject Avatar in PlayerList)
         {
             if(Avatar.GetComponent<CharacterPreset>().Type == CharacterPreset.Identity.Me)
             {
                 MyAvatar = Avatar;
+            }
+        }
+        int j = 0;
+        for(int i = 0; i < PlayerList.Length; i++)
+        {
+            if(PlayerList[i].GetComponent<CharacterPreset>().Team != MyAvatar.GetComponent<CharacterPreset>().Team)
+            {
+                ArrowList[j].MainCamera = this;
+                ArrowList[j].PointedTarget = PlayerList[i];
+                ArrowList[j].enabled = true;
+                j++;
             }
         }
         playerTransform = MyAvatar.transform;
@@ -27,7 +42,8 @@ public class CameraFollowAvatar : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(MyAvatar)
+        PlayerList = GetComponentInParent<GameMainControl>().Players; 
+        if (MyAvatar)
         {
             if (MyAvatar.activeInHierarchy)
             {
@@ -35,16 +51,23 @@ public class CameraFollowAvatar : MonoBehaviour
             }
             else
             {
-                GameObject[] SurvivingList = GetComponentInParent<GameMainControl>().Players;
-                for (int i = 0; i < SurvivingList.Length; i++)
+                for (int i = 0; i < PlayerList.Length; i++)
                 {
-                    if (SurvivingList[i].activeInHierarchy && SurvivingList[i].GetComponent<CharacterPreset>().Team == MyAvatar.GetComponent<CharacterPreset>().Team)
+                    if (PlayerList[i].activeInHierarchy && PlayerList[i].GetComponent<CharacterPreset>().Team == MyAvatar.GetComponent<CharacterPreset>().Team)
                     {
-                        transform.position = SurvivingList[i].transform.position + deviation;
+                        transform.position = PlayerList[i].transform.position + deviation;
                         break;
                     }
                 }
             }
+        }
+    }
+
+    public void ResetArrow()
+    {
+        foreach(PointingArrow arrow in ArrowList)
+        {
+            arrow.enabled = false;
         }
     }
 }

@@ -384,6 +384,7 @@ public class GameMainControl : MonoBehaviour
         GameObject.Find("HPBarFrame").GetComponent<HPBar>().enabled = false;
         GameObject.Find("LongAttackIcon").GetComponent<SkillCoolDown>().enabled = false;
         GameObject.Find("CrushIcon").GetComponent<SkillCoolDown>().enabled = false;
+        GameObject.Find("HealIcon").GetComponent<SkillCoolDown>().enabled = false;
         GameObject.Find("UpperPanel").GetComponent<UpperPanel>().enabled = false;
         Team1.surviving = true;
         Team2.surviving = true;
@@ -393,6 +394,7 @@ public class GameMainControl : MonoBehaviour
         team2wincount = 0;
         Destroy(transform.Find("Map").gameObject);
         Players = new GameObject[] { null };
+        GameCamera.GetComponent<CameraFollowAvatar>().ResetArrow();
         UILobby.BackToLobby();
         gameObject.SetActive(false);
         UILobby.gameObject.SetActive(true);
