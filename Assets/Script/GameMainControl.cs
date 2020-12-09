@@ -169,7 +169,7 @@ public class GameMainControl : MonoBehaviour
                 }
                 AnnouncementWindow.gameObject.SetActive(true);
                 StartCoroutine(AnnouncementWindow.HideWindow(3));
-                if (team1wincount >= Mathf.Round((float)WinUnit / 2) || team2wincount >= Mathf.Round((float)WinUnit / 2))
+                if (team1wincount >= (WinUnit + 1) / 2 || team2wincount >= (WinUnit + 1) / 2)
                 {
                     StartCoroutine(EndGame(3));
                 }

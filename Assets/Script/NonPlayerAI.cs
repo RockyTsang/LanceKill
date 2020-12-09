@@ -10,6 +10,7 @@ public class NonPlayerAI : MonoBehaviour
     public CharacterPreset PresetScript;
     private float attackDistance;
     private bool collideOnBlock;
+    private float angleToBlock;
 
     // Start is called before the first frame update
     void Start()
@@ -74,8 +75,21 @@ public class NonPlayerAI : MonoBehaviour
             transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
             if (collideOnBlock)
             {
-                // Turn left if collide on block
-                transform.Translate(Vector2.left * PresetScript.moveSpeed * Time.deltaTime, Space.World);
+                if((angle - angleToBlock) > -30)
+                {
+                    // Turn left if collide on block
+                    transform.Translate(Vector2.left * PresetScript.moveSpeed * Time.deltaTime, Space.World);
+                }else if ((angle - angleToBlock) < 30)
+                {
+                    // Turn right if collide on block
+                    transform.Translate(Vector2.right * PresetScript.moveSpeed * Time.deltaTime, Space.World);
+                }
+                else
+                {
+                    // Move to the position of enemy
+                    transform.Translate(Vector2.up * PresetScript.moveSpeed * Time.deltaTime, Space.Self);
+                }
+                
             }
             else
             {
@@ -94,6 +108,9 @@ public class NonPlayerAI : MonoBehaviour
     {
         if(collision.gameObject.GetComponent<Rigidbody2D>().bodyType == RigidbodyType2D.Static){
             collideOnBlock = true;
+            Vector2 mypos2 = new Vector2(Camera.main.WorldToScreenPoint(gameObject.transform.position).x, Camera.main.WorldToScreenPoint(gameObject.transform.position).y);
+            Vector2 targetpos2 = new Vector2(Camera.main.WorldToScreenPoint(collision.transform.position).x, Camera.main.WorldToScreenPoint(collision.transform.position).y);
+            angleToBlock = Vector2.SignedAngle(new Vector2(0, 1), targetpos2 - mypos2);
         }
     }
 
