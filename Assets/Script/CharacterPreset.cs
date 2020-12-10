@@ -231,9 +231,16 @@ public class CharacterPreset : MonoBehaviour
     {
         transform.position = SpawnPosition.position;
         HealthPoint = 200;
+        StopCoroutine(LongAttack());
         longAttackTimer = 0;
+        longAttackCoolDown = false;
+        StopCoroutine(Crush());
         crushTimer = 0;
+        crushCoolDown = false;
+        StopCoroutine(Heal());
         healTimer = 0;
+        healCoolDown = false;
+        
         transform.rotation = Quaternion.Euler(0, 0, 0);
         transform.Find("Weapon(Clone)").GetComponent<Weapon>().Attacking = false;
         switch (WeaponType)

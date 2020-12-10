@@ -75,11 +75,11 @@ public class NonPlayerAI : MonoBehaviour
             transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
             if (collideOnBlock)
             {
-                if((angle - angleToBlock) > -30)
+                if((angle - angleToBlock) > -60)
                 {
                     // Turn left if collide on block
                     transform.Translate(Vector2.left * PresetScript.moveSpeed * Time.deltaTime, Space.World);
-                }else if ((angle - angleToBlock) < 30)
+                }else if ((angle - angleToBlock) < 60)
                 {
                     // Turn right if collide on block
                     transform.Translate(Vector2.right * PresetScript.moveSpeed * Time.deltaTime, Space.World);

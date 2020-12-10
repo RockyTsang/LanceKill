@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class AvatarPreview : MonoBehaviour
 {
+    private float ScreenWidthRate;
     public Dropdown Team;
     public Dropdown Weapon;
     public Text SkillDescription;
@@ -23,6 +24,7 @@ public class AvatarPreview : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        ScreenWidthRate = (float)UnityEngine.Screen.width / 1920;
         switch (Team.value)
         {
             case 0:
@@ -50,13 +52,13 @@ public class AvatarPreview : MonoBehaviour
         {
             case 0:
                 SkillDescription.text = SkillDescription.GetComponent<LanguageHandler>().PreviewDescription(2);
-                LeftHand.transform.position = transform.position + new Vector3(-50, 50, 0);
-                RightHand.transform.position = transform.position + new Vector3(50, 50, 0);
+                LeftHand.transform.position = transform.position + new Vector3(-50*ScreenWidthRate, 50 * ScreenWidthRate, 0);
+                RightHand.transform.position = transform.position + new Vector3(50 * ScreenWidthRate, 50 * ScreenWidthRate, 0);
                 PrimaryWeapon.sprite = WeaponSprites[0];
                 SecondaryWeapon.sprite = WeaponSprites[0];
-                PrimaryWeapon.transform.position = transform.position + new Vector3(60, 50, 0);
+                PrimaryWeapon.transform.position = transform.position + new Vector3(60 * ScreenWidthRate, 50 * ScreenWidthRate, 0);
                 PrimaryWeapon.transform.rotation = Quaternion.Euler(0, 0, -90);
-                SecondaryWeapon.transform.position = transform.position + new Vector3(-60, 50, 0);
+                SecondaryWeapon.transform.position = transform.position + new Vector3(-60 * ScreenWidthRate, 50 * ScreenWidthRate, 0);
                 SecondaryWeapon.transform.rotation = Quaternion.Euler(0, 0, 90);
                 PrimaryWeapon.SetNativeSize();
                 SecondaryWeapon.SetNativeSize();
@@ -65,10 +67,10 @@ public class AvatarPreview : MonoBehaviour
                 break;
             case 1:
                 SkillDescription.text = SkillDescription.GetComponent<LanguageHandler>().PreviewDescription(10);
-                LeftHand.transform.position = transform.position + new Vector3(-50, 50, 0);
-                RightHand.transform.position = transform.position + new Vector3(50, 50, 0);
+                LeftHand.transform.position = transform.position + new Vector3(-50 * ScreenWidthRate, 50 * ScreenWidthRate, 0);
+                RightHand.transform.position = transform.position + new Vector3(50 * ScreenWidthRate, 50 * ScreenWidthRate, 0);
                 PrimaryWeapon.sprite = WeaponSprites[1];
-                PrimaryWeapon.transform.position = transform.position + new Vector3(50, 100, 0);
+                PrimaryWeapon.transform.position = transform.position + new Vector3(50 * ScreenWidthRate, 100 * ScreenWidthRate, 0);
                 PrimaryWeapon.transform.rotation = Quaternion.Euler(0, 0, 0);
                 PrimaryWeapon.SetNativeSize();
                 PrimaryWeapon.gameObject.SetActive(true);
@@ -76,10 +78,10 @@ public class AvatarPreview : MonoBehaviour
                 break;
             case 2:
                 SkillDescription.text = SkillDescription.GetComponent<LanguageHandler>().PreviewDescription(5);
-                LeftHand.transform.position = transform.position + new Vector3(-50, 50, 0);
-                RightHand.transform.position = transform.position + new Vector3(50, 50, 0);
+                LeftHand.transform.position = transform.position + new Vector3(-50 * ScreenWidthRate, 50 * ScreenWidthRate, 0);
+                RightHand.transform.position = transform.position + new Vector3(50 * ScreenWidthRate, 50 * ScreenWidthRate, 0);
                 PrimaryWeapon.sprite = WeaponSprites[2];
-                PrimaryWeapon.transform.position = transform.position + new Vector3(-50, 50, 0);
+                PrimaryWeapon.transform.position = transform.position + new Vector3(-50 * ScreenWidthRate, 50 * ScreenWidthRate, 0);
                 PrimaryWeapon.transform.rotation = Quaternion.Euler(0, 0, 90);
                 PrimaryWeapon.SetNativeSize();
                 PrimaryWeapon.gameObject.SetActive(true);
@@ -87,13 +89,13 @@ public class AvatarPreview : MonoBehaviour
                 break;
             case 3:
                 SkillDescription.text = SkillDescription.GetComponent<LanguageHandler>().PreviewDescription(5);
-                LeftHand.transform.position = transform.position + new Vector3(-75, 0, 0);
-                RightHand.transform.position = transform.position + new Vector3(75, 0, 0);
+                LeftHand.transform.position = transform.position + new Vector3(-75 * ScreenWidthRate, 0, 0);
+                RightHand.transform.position = transform.position + new Vector3(75 * ScreenWidthRate, 0, 0);
                 PrimaryWeapon.sprite = WeaponSprites[2];
                 SecondaryWeapon.sprite = WeaponSprites[2];
-                PrimaryWeapon.transform.position = transform.position + new Vector3(75, 0, 0);
+                PrimaryWeapon.transform.position = transform.position + new Vector3(75 * ScreenWidthRate, 0, 0);
                 PrimaryWeapon.transform.rotation = Quaternion.Euler(0, 0, 0);
-                SecondaryWeapon.transform.position = transform.position + new Vector3(-75, 0, 0);
+                SecondaryWeapon.transform.position = transform.position + new Vector3(-75 * ScreenWidthRate, 0, 0);
                 SecondaryWeapon.transform.rotation = Quaternion.Euler(0, 0, 0);
                 PrimaryWeapon.SetNativeSize();
                 SecondaryWeapon.SetNativeSize();
