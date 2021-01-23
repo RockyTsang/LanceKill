@@ -9,7 +9,7 @@ public class PointingArrow : MonoBehaviour
     public float distance;
 
     // Start is called before the first frame update
-    void Start()
+    void OnEnable()
     {
         switch (PointedTarget.GetComponent<CharacterPreset>().Team)
         {

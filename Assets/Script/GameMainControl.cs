@@ -386,6 +386,10 @@ public class GameMainControl : MonoBehaviour
         GameObject.Find("CrushIcon").GetComponent<SkillCoolDown>().enabled = false;
         GameObject.Find("HealIcon").GetComponent<SkillCoolDown>().enabled = false;
         GameObject.Find("UpperPanel").GetComponent<UpperPanel>().enabled = false;
+        GameObject.Find("Arrow1").GetComponent<PointingArrow>().enabled = false;
+        GameObject.Find("Arrow2").GetComponent<PointingArrow>().enabled = false;
+        GameObject.Find("Arrow3").GetComponent<PointingArrow>().enabled = false;
+        GameObject.Find("Arrow4").GetComponent<PointingArrow>().enabled = false;
         Team1.surviving = true;
         Team2.surviving = true;
         Team1.GetComponent<CheckTeammate>().enabled = false;
